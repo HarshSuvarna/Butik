@@ -4,12 +4,17 @@ import React, { useState } from "react";
 import axios from "axios"; // Import axios for making HTTP requests
 import countryCodes from "../../countryCodes.json";
 import "./auth.css";
+import { getOtpAPI, sendOTP } from "../../services/auth.services";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Auth = ({ setIsAuthenticated }) => {
   const [countryCode, setCountryCode] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleCountryCodeChange = (e) => {
     setCountryCode(e.target.value);
@@ -27,64 +32,57 @@ const Auth = ({ setIsAuthenticated }) => {
   const handleMobileNumberSubmit = async (e) => {
     e.preventDefault();
 
-    let data = JSON.stringify({
-      "cc": countryCode,
-      "mobile": mobileNumber
-    });
+    try {
+      let data = {
+        cc: countryCode,
+        mobile: mobileNumber,
+      };
 
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://main-emu7ybkl6a-el.a.run.app/send_otp',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: data
-    };
-
-    axios.request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        setOtpSent(true)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
+      setLoading(true);
+      let res = await sendOTP(data);
+      if (res.data.status_code === 200) {
+        toast("Otp sent!");
+      }
+      setOtpSent(true);
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log("e :>> ", e);
+      if (e.response.status === 422) {
+        toast("Invalid phone number");
+      }
+      console.log("Error:", e.message || e.error || e);
+    }
+  };
 
   const handleOtpSubmit = async (e) => {
-    e.preventDefault();
-    let data = JSON.stringify({
-      "cc": countryCode,
-      "mobile": mobileNumber,
-      otp,
-      "otp_for": "user"
-    });
-
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://main-emu7ybkl6a-el.a.run.app/verify_otp',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: data
-    };
-
-    axios.request(config)
-      .then((response) => {
-        setIsAuthenticated(true); // Pass success flag to parent component
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsAuthenticated(false); // Pass failure flag to parent component
-      });
+    try {
+      e.preventDefault();
+      let data = {
+        cc: countryCode,
+        mobile: mobileNumber,
+        otp,
+        otp_for: "user",
+      };
+      setLoading(true);
+      const res = await getOtpAPI(data);
+      console.log("res :>> ", res);
+      setLoading(false);
+      if (res.data.status_code === 200) {
+        setIsAuthenticated(true);
+      }
+      console.log("res.data.message_status :>> ", res.data.message_status);
+      toast(res.data.message || res.data.message_status);
+    } catch (e) {
+      setLoading(false);
+      toast("Incorrect OTP");
+      console.log(e.message || e.error || e);
+    }
   };
 
   return (
     <div className="auth-container">
+      <ToastContainer />
       {!otpSent && (
         <>
           <h2>Mobile Number Login</h2>
@@ -105,7 +103,7 @@ const Auth = ({ setIsAuthenticated }) => {
                 ))}
               </select>
             </div>
-            <label htmlFor="mobileNumber">Mobile Number:</label>
+            <label htmlFor="mobileNumber">Mobile Number</label>
             <input
               type="tel"
               id="mobileNumber"
@@ -116,7 +114,13 @@ const Auth = ({ setIsAuthenticated }) => {
               onChange={handleMobileNumberChange}
               required
             />
-            <button type="submit">Send OTP</button>
+            <button type="submit">
+              {loading ? (
+                <ClipLoader loading={loading} size={10} color="white" />
+              ) : (
+                "Submit"
+              )}
+            </button>
           </form>
         </>
       )}
@@ -129,13 +133,20 @@ const Auth = ({ setIsAuthenticated }) => {
               type="text"
               id="otp"
               name="otp"
-              placeholder="Enter the OTP sent to your mobile"
+              placeholder="Enter the OTP"
               value={otp}
               onChange={handleOtpChange}
               required
             />
-            <button type="submit">Verify OTP</button>
+            <button type="submit">
+              {loading ? (
+                <ClipLoader loading={loading} size={10} color="white" />
+              ) : (
+                "Verify OTP"
+              )}
+            </button>
           </form>
+          <p onClick={() => setOtpSent(false)}>Back</p>
         </>
       )}
     </div>
