@@ -30,8 +30,8 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
   };
 
   const login = (token) => {
+    console.log("token :>> ", token);
     const decoded = jwtDecode(token);
-    console.log("decoded :>> ", decoded);
     cookies.set("jwt_authorization", token, {
       expired: new Date(decoded.exp * 1000),
     });
@@ -48,16 +48,14 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
       };
 
       setLoading(true);
-      let res = await sendOTP(data);
-      if (res.data.status_code === 200) {
-        toast("Otp sent!");
+      const res = await sendOTP(data);
+      console.log("res :>> ", res);
+      if (res) {
+        setOtpSent(true);
       }
-      setOtpSent(true);
     } catch (e) {
       console.log("e :>> ", e);
-      if (e.response.status === 422) {
-        toast("Invalid phone number");
-      }
+      toast("Invalid phone number");
       console.log("Error:", e.message || e.error || e);
     } finally {
       setLoading(false);
@@ -75,13 +73,12 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
       };
       setLoading(true);
       const res = await getOtpAPI(data);
-      console.log("res :>> ", res);
       setLoading(false);
-      if (res.data.status_code === 200) {
-        login(res.data.data.Token);
+      if (res?.data?.token) {
+        login(res?.data?.Token);
       }
-      console.log("res.data.message_status :>> ", res.data.message_status);
-      toast(res.data.message || res.data.message_status);
+      toast(res?.data?.message || res?.message_status || "Incorrect OTP");
+      setIsAuthenticated(true);
     } catch (e) {
       setLoading(false);
       toast("Incorrect OTP");
@@ -155,7 +152,14 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
               )}
             </button>
           </form>
-          <p onClick={() => setOtpSent(false)}>Back</p>
+          <p
+            onClick={() => {
+              setOtpSent(false);
+              setOtp("");
+            }}
+          >
+            Back
+          </p>
         </>
       )}
     </div>
