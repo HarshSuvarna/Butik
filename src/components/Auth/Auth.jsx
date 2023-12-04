@@ -1,15 +1,15 @@
 // components/Auth/Auth.js
 
 import React, { useState } from "react";
-import axios from "axios"; // Import axios for making HTTP requests
 import countryCodes from "../../countryCodes.json";
 import "./auth.css";
 import { getOtpAPI, sendOTP } from "../../services/auth.services";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ClipLoader from "react-spinners/ClipLoader";
+import { jwtDecode } from "jwt-decode";
 
-const Auth = ({ setIsAuthenticated }) => {
+const Auth = ({ setIsAuthenticated, cookies }) => {
   const [countryCode, setCountryCode] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
@@ -29,6 +29,15 @@ const Auth = ({ setIsAuthenticated }) => {
     setOtp(e.target.value);
   };
 
+  const login = (token) => {
+    const decoded = jwtDecode(token);
+    console.log("decoded :>> ", decoded);
+    cookies.set("jwt_authorization", token, {
+      expired: new Date(decoded.exp * 1000),
+    });
+    setIsAuthenticated(true);
+  };
+
   const handleMobileNumberSubmit = async (e) => {
     e.preventDefault();
 
@@ -44,14 +53,14 @@ const Auth = ({ setIsAuthenticated }) => {
         toast("Otp sent!");
       }
       setOtpSent(true);
-      setLoading(false);
     } catch (e) {
-      setLoading(false);
       console.log("e :>> ", e);
       if (e.response.status === 422) {
         toast("Invalid phone number");
       }
       console.log("Error:", e.message || e.error || e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,7 +78,7 @@ const Auth = ({ setIsAuthenticated }) => {
       console.log("res :>> ", res);
       setLoading(false);
       if (res.data.status_code === 200) {
-        setIsAuthenticated(true);
+        login(res.data.data.Token);
       }
       console.log("res.data.message_status :>> ", res.data.message_status);
       toast(res.data.message || res.data.message_status);
