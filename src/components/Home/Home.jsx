@@ -13,12 +13,14 @@ const Home = ({ cookies }) => {
     }
   };
 
+  const logout = () => {
+    cookies.remove("jwt_authorization");
+  };
+
   return (
     <div className="home-container">
       <h2>Welcome to Home</h2>
-      <button onClick={() => cookies.remove("jwt_authorization")}>
-        Logout
-      </button>
+      <button onClick={logout}>Logout</button>
 
       <button onClick={getSomething}>Get something</button>
       {/* Add content for the Home component */}

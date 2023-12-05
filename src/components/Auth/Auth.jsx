@@ -30,8 +30,8 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
   };
 
   const login = (token) => {
-    console.log("token :>> ", token);
     const decoded = jwtDecode(token);
+    window.localStorage.setItem("auth", JSON.stringify(decoded));
     cookies.set("jwt_authorization", token, {
       expired: new Date(decoded.exp * 1000),
     });
@@ -49,7 +49,6 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
 
       setLoading(true);
       const res = await sendOTP(data);
-      console.log("res :>> ", res);
       if (res) {
         setOtpSent(true);
       }
@@ -74,11 +73,10 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
       setLoading(true);
       const res = await getOtpAPI(data);
       setLoading(false);
-      if (res?.data?.token) {
-        login(res?.data?.Token);
+      console.log("res :>> ", res);
+      if (res?.data?.Token) {
+        login(res?.data?.Token, res);
       }
-      toast(res?.data?.message || res?.message_status || "Incorrect OTP");
-      setIsAuthenticated(true);
     } catch (e) {
       setLoading(false);
       toast("Incorrect OTP");
@@ -102,6 +100,9 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
                 onChange={handleCountryCodeChange}
                 required
               >
+                <option value="" disabled>
+                  Select
+                </option>
                 {countryCodes.map((country, index) => (
                   <option key={index} value={country.code}>
                     {`${country.name} (${country.code})`}

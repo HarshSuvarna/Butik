@@ -1,11 +1,18 @@
 // App.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
 
 function App({ cookies }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = cookies.get("jwt_authorization");
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
   return (
     <div className="main">
       {!isAuthenticated && (
