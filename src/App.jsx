@@ -9,10 +9,11 @@ function App({ cookies }) {
 
   useEffect(() => {
     const token = cookies.get("jwt_authorization");
+    console.log(" isAuthenticated:>> ", isAuthenticated);
     if (token) {
       setIsAuthenticated(true);
     }
-  }, []);
+  }, [isAuthenticated]);
   return (
     <div className="main">
       {!isAuthenticated && (

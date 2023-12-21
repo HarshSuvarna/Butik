@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import axios from "axios";
 import axiosInterceptors from "./common/axiosInterceptors.js";
 import Cookies from "universal-cookie";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 const cookies = new Cookies();
 axiosInterceptors(axios, cookies);

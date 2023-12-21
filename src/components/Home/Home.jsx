@@ -1,9 +1,10 @@
 // components/Home/Home.js
-import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { getUser } from "../../services/auth.services";
+import "./home.css";
 
 const Home = ({ cookies }) => {
+  const [showMenu, setShowMenu] = useState(false);
   const getSomething = async () => {
     try {
       const res = await getUser();
@@ -18,13 +19,28 @@ const Home = ({ cookies }) => {
   };
 
   return (
-    <div className="home-container">
-      <h2>Welcome to Home</h2>
-      <button onClick={logout}>Logout</button>
+    <>
+      <div className="nav-bar">
+        <i class="fa-solid fa-list" onClick={() => setShowMenu(!showMenu)} />
+        <div className="right-container">
+          <button onClick={logout}>Logout</button>
+          {/* <button onClick={getSomething}>Get something</button> */}
+        </div>
+      </div>
+      <div className={`side-bar ${showMenu && "expanded"}`}>
+        <i class="fa-solid fa-house icon-container">
+          <p>Home</p>
+        </i>
+        <i class="fa-solid fa-shapes">Categories</i>
+        <i class="fa-solid fa-comment">Chat</i>
+        <i class="fa-solid fa-user">Account</i>
+      </div>
 
-      <button onClick={getSomething}>Get something</button>
-      {/* Add content for the Home component */}
-    </div>
+      <div className="category-store-container">
+        <div className="category-container">category contrainer</div>
+        <div className="store-container">store container</div>
+      </div>
+    </>
   );
 };
 

@@ -6,9 +6,8 @@ import "./auth.css";
 import { getOtpAPI, sendOTP } from "../../services/auth.services";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ClipLoader from "react-spinners/ClipLoader";
 import { jwtDecode } from "jwt-decode";
-
+import Loader from "../loader/loader";
 const Auth = ({ setIsAuthenticated, cookies }) => {
   const [countryCode, setCountryCode] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -121,13 +120,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
               onChange={handleMobileNumberChange}
               required
             />
-            <button type="submit">
-              {loading ? (
-                <ClipLoader loading={loading} size={10} color="white" />
-              ) : (
-                "Submit"
-              )}
-            </button>
+            <button type="submit">{loading ? <Loader /> : "Submit"}</button>
           </form>
         </>
       )}
@@ -145,13 +138,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
               onChange={handleOtpChange}
               required
             />
-            <button type="submit">
-              {loading ? (
-                <ClipLoader loading={loading} size={10} color="white" />
-              ) : (
-                "Verify OTP"
-              )}
-            </button>
+            <button type="submit">{loading ? <Loader /> : "Verify OTP"}</button>
           </form>
           <p
             onClick={() => {
