@@ -5,12 +5,15 @@ import axios from "axios";
 import axiosInterceptors from "./common/axiosInterceptors.js";
 import Cookies from "universal-cookie";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { MyProvider } from "./context/AuthContext.jsx";
 
 const cookies = new Cookies();
 axiosInterceptors(axios, cookies);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App cookies={cookies} />
+    <MyProvider>
+      <App cookies={cookies} />
+    </MyProvider>
   </React.StrictMode>
 );

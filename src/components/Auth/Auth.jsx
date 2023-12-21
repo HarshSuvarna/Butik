@@ -1,6 +1,6 @@
 // components/Auth/Auth.js
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import countryCodes from "../../countryCodes.json";
 import "./auth.css";
 import { getOtpAPI, sendOTP } from "../../services/auth.services";
@@ -8,12 +8,18 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { jwtDecode } from "jwt-decode";
 import Loader from "../loader/loader";
+import { useMyContext } from "../../context/AuthContext";
 const Auth = ({ setIsAuthenticated, cookies }) => {
   const [countryCode, setCountryCode] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { contextValues, updateContextValue } = useMyContext();
+
+  useEffect(() => {
+    console.log("Component re-rendered. otpSent:", contextValues.otpSent);
+    // You can perform additional actions here
+  }, [contextValues.otpSent]);
 
   const handleCountryCodeChange = (e) => {
     setCountryCode(e.target.value);
@@ -49,7 +55,8 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
       setLoading(true);
       const res = await sendOTP(data);
       if (res) {
-        setOtpSent(true);
+        // setOtpSent(true);
+        updateContextValue("otpSent", "true");
       }
     } catch (e) {
       console.log("e :>> ", e);
@@ -72,7 +79,6 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
       setLoading(true);
       const res = await getOtpAPI(data);
       setLoading(false);
-      console.log("res :>> ", res);
       if (res?.data?.Token) {
         login(res?.data?.Token, res);
       }
@@ -86,7 +92,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
   return (
     <div className="auth-container">
       <ToastContainer />
-      {!otpSent && (
+      {!contextValues.otpSent && (
         <>
           <h2>Mobile Number Login</h2>
           <form onSubmit={handleMobileNumberSubmit}>
@@ -124,7 +130,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
           </form>
         </>
       )}
-      {otpSent && (
+      {contextValues.otpSent && (
         <>
           <h2>Verify OTP</h2>
           <form onSubmit={handleOtpSubmit}>

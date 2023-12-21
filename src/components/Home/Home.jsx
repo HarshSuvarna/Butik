@@ -1,16 +1,40 @@
 // components/Home/Home.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getUser } from "../../services/auth.services";
 import "./home.css";
+import { getNearestStores, getLocation } from "../../services/stores.services";
+import { getAllCategories } from "../../services/categories.services";
 
 const Home = ({ cookies }) => {
   const [showMenu, setShowMenu] = useState(false);
-  const getSomething = async () => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
     try {
-      const res = await getUser();
-      console.log("res of getuser API :>> ", res);
+      const responses = await Promise.all([
+        getUser(),
+        getLocation(),
+        getAllCategories({
+          categoryNames: [],
+        }),
+      ]);
+      const userData = responses[0];
+      const location = responses[1];
+      const categories = responses[2];
+      const stores = await getNearestStores({
+        latitude: location.latitude,
+        longitude: location.longitude,
+        max_kms: 17,
+      });
+      console.log("stores :>> ", stores);
+      console.log("categories :>> ", categories);
+      // Handle the API response (res) here
+      console.log(userData);
     } catch (e) {
-      console.log(e.message || e.error || e);
+      // Handle errors in the API call
+      console.error(e.message || e.error || e);
     }
   };
 
@@ -21,24 +45,33 @@ const Home = ({ cookies }) => {
   return (
     <>
       <div className="nav-bar">
-        <i class="fa-solid fa-list" onClick={() => setShowMenu(!showMenu)} />
+        <i
+          className="fa-solid fa-list"
+          onClick={() => setShowMenu(!showMenu)}
+        />
         <div className="right-container">
           <button onClick={logout}>Logout</button>
-          {/* <button onClick={getSomething}>Get something</button> */}
         </div>
       </div>
+
       <div className={`side-bar ${showMenu && "expanded"}`}>
-        <i class="fa-solid fa-house icon-container">
+        <i className="fa-solid fa-house icon-container">
           <p>Home</p>
         </i>
-        <i class="fa-solid fa-shapes">Categories</i>
-        <i class="fa-solid fa-comment">Chat</i>
-        <i class="fa-solid fa-user">Account</i>
+        <i className="fa-solid fa-shapes">Categories</i>
+        <i className="fa-solid fa-comment">Chat</i>
+        <i className="fa-solid fa-user">Account</i>
       </div>
 
       <div className="category-store-container">
-        <div className="category-container">category contrainer</div>
-        <div className="store-container">store container</div>
+        <div className="category-container">asdfsf</div>
+        <div className="store-container">
+          <p>asdsdfsfsf</p>
+          <p>asdsdfsfsf</p>
+          <p>asdsdfsfsf</p>
+          <p>asdsdfsfsf</p>
+          <p>asdsdfsfsf</p>
+        </div>
       </div>
     </>
   );
