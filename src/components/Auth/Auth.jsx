@@ -17,7 +17,6 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
   const { contextValues, updateContextValue } = useMyContext();
 
   useEffect(() => {
-    console.log("Component re-rendered. otpSent:", contextValues.otpSent);
     // You can perform additional actions here
   }, [contextValues.otpSent]);
 
@@ -148,7 +147,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
           </form>
           <p
             onClick={() => {
-              setOtpSent(false);
+              updateContextValue("otpSent", "false");
               setOtp("");
             }}
           >

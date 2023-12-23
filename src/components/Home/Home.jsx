@@ -32,11 +32,9 @@ const Home = ({ cookies }) => {
       const stores = await getNearestStores({
         latitude: location.latitude,
         longitude: location.longitude,
-        max_kms: 17,
+        max_kms: 10000,
       });
       setStores(stores.data);
-      // console.log("stores :>> ", stores);
-      // Handle the API response (res) here
     } catch (e) {
       // Handle errors in the API call
       console.error(e.message || e.error || e);
