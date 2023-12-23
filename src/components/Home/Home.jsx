@@ -4,7 +4,7 @@ import { getUser } from "../../services/auth.services";
 import "./home.css";
 import { getNearestStores, getLocation } from "../../services/stores.services";
 import { getAllCategories } from "../../services/categories.services";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Categories from "./Category";
 import Stores from "./Stores";
 import Loader from "../loader/loader";
@@ -14,31 +14,13 @@ const Home = ({ cookies }) => {
   const [stores, setStores] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
 
-  const path = window.location.pathname;
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const renderContent = () => {
-    // switch (path) {
-    //   case "/home":
-    //     return (
-    //       <>
-    //         <Categories categories={categories} />
-    //         <Stores stores={stores} />
-    //       </>
-    //     );
-    //   //   return <HomeContent />;
-    //   // case "category":
-    //   //   return <CategoryContent />;
-    //   // case "chat":
-    //   //   return <ChatContent />;
-    //   // case "account":
-    //   //   return <AccountContent />;
-    //   default:
-    //     window.history.pushState({}, "", "/home");
-    // }
     return (
       <Routes>
         <Route
@@ -76,10 +58,6 @@ const Home = ({ cookies }) => {
       </Routes>
     );
   };
-
-  useEffect(() => {
-    console.log("path :>> ", path);
-  }, [path]);
 
   const fetchData = async () => {
     try {
@@ -125,33 +103,25 @@ const Home = ({ cookies }) => {
         <div className={`side-bar ${showMenu && "expanded"}`}>
           <i
             className="fa-solid fa-house icon-container"
-            onClick={() => {
-              window.history.pushState({}, "", "/home");
-            }}
+            onClick={()=>{navigate("/home")}}
           >
             <p>Home</p>
           </i>
           <i
             className="fa-solid fa-shapes"
-            onClick={() => {
-              window.history.pushState({}, "", "/categories");
-            }}
+            onClick={() => navigate("/categories")}
           >
             Categories
           </i>
           <i
             className="fa-solid fa-comment"
-            onClick={() => {
-              window.history.pushState({}, "", "/chat");
-            }}
+            onClick={()=>{navigate("/chat")}}
           >
             Chat
           </i>
           <i
             className="fa-solid fa-user"
-            onClick={() => {
-              window.history.pushState({}, "", "/account");
-            }}
+            onClick={()=>{navigate("/account")}}
           >
             Account
           </i>
