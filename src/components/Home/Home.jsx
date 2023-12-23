@@ -4,9 +4,15 @@ import { getUser } from "../../services/auth.services";
 import "./home.css";
 import { getNearestStores, getLocation } from "../../services/stores.services";
 import { getAllCategories } from "../../services/categories.services";
+import Categories from "./Category";
+import Stores from "./Stores";
 
 const Home = ({ cookies }) => {
+  const [categories, setCategories] = useState([]);
+  const [stores, setStores] = useState([]);
+
   const [showMenu, setShowMenu] = useState(false);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -22,16 +28,15 @@ const Home = ({ cookies }) => {
       ]);
       const userData = responses[0];
       const location = responses[1];
-      const categories = responses[2];
+      setCategories(responses[2]?.data || []);
       const stores = await getNearestStores({
         latitude: location.latitude,
         longitude: location.longitude,
         max_kms: 17,
       });
-      console.log("stores :>> ", stores);
-      console.log("categories :>> ", categories);
+      setStores(stores.data);
+      // console.log("stores :>> ", stores);
       // Handle the API response (res) here
-      console.log(userData);
     } catch (e) {
       // Handle errors in the API call
       console.error(e.message || e.error || e);
@@ -50,6 +55,7 @@ const Home = ({ cookies }) => {
           onClick={() => setShowMenu(!showMenu)}
         />
         <div className="right-container">
+          <input className="search" type="text" />
           <button onClick={logout}>Logout</button>
         </div>
       </div>
@@ -64,14 +70,8 @@ const Home = ({ cookies }) => {
       </div>
 
       <div className="category-store-container">
-        <div className="category-container">asdfsf</div>
-        <div className="store-container">
-          <p>asdsdfsfsf</p>
-          <p>asdsdfsfsf</p>
-          <p>asdsdfsfsf</p>
-          <p>asdsdfsfsf</p>
-          <p>asdsdfsfsf</p>
-        </div>
+        <Categories categories={categories} />
+        <Stores stores={stores} />
       </div>
     </>
   );

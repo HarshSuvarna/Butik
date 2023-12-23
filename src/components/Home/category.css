@@ -1,0 +1,35 @@
+.category-container {
+  width: 90%;
+  background-color: blueviolet;
+  height: 5rem;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: height 0.8s ease;
+}
+
+.category-container.expanded {
+  height: 20rem;
+}
+
+.category-icon-container {
+  height: 65px;
+  margin: 9px 10px;
+}
+
+.category-container button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.category-icon-container img {
+  height: 61px;
+  background-color: white;
+  border-radius: 68px;
+  margin-left: 23px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
