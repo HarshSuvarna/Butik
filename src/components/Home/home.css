@@ -1,6 +1,6 @@
 .nav-bar {
   z-index: 100;
-  background-color: yellowgreen;
+  background-color: blue;
   height: 55px;
   display: flex;
   justify-content: space-between;
@@ -20,15 +20,18 @@
 }
 
 .side-bar {
-  z-index: 100;
   background-color: blue;
   color: white;
   width: 6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: start;
   transition: width 0.5s ease;
+  position: absolute;
+  z-index: 200;
+  height: 100%;
+  font-family: "Arial", sans-serif;
 }
 
 .side-bar.expanded {
@@ -52,16 +55,40 @@
 
 .category-store-container {
   background-color: yellow;
-  height: 33rem;
-  min-width: 30rem;
+  height: 624px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  margin-left: 4rem;
+  position: relative;
+  width: -webkit-fill-available;
 }
 
 .body-content {
   display: flex;
   position: relative;
+}
+
+.sidebar-tabs {
+  height: 135px;
+  margin-bottom: 1px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5 px;
+}
+
+.sidebar-tabs:hover {
+  background-color: rgb(86, 86, 235);
+}
+
+.sidebar-tabs i {
+  font-size: 20px;
+}
+
+.sidebar-tabs p {
+  margin-left: 5px;
 }

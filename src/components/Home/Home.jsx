@@ -91,8 +91,9 @@ const Home = ({ cookies }) => {
     <>
       <div className="nav-bar">
         <i
-          className="fa-solid fa-list"
+          className={showMenu ? "fa-solid fa-arrow-left" : "fa-solid fa-list"}
           onClick={() => setShowMenu(!showMenu)}
+          style={{ color: "white", marginLeft: "18px", fontSize: "20px" }}
         />
         <div className="right-container">
           <input className="search" type="text" />
@@ -101,30 +102,46 @@ const Home = ({ cookies }) => {
       </div>
       <div className="body-content">
         <div className={`side-bar ${showMenu && "expanded"}`}>
-          <i
-            className="fa-solid fa-house icon-container"
-            onClick={()=>{navigate("/home")}}
+          <div
+            className="sidebar-tabs"
+            onClick={() => {
+              navigate("/home");
+              setShowMenu(false);
+            }}
           >
-            <p>Home</p>
-          </i>
-          <i
-            className="fa-solid fa-shapes"
-            onClick={() => navigate("/categories")}
+            <i className="fa-solid fa-house icon-container"></i>
+            {showMenu && <p>Home</p>}
+          </div>
+          <div
+            className="sidebar-tabs"
+            onClick={() => {
+              navigate("/categories");
+              setShowMenu(false);
+            }}
           >
-            Categories
-          </i>
-          <i
-            className="fa-solid fa-comment"
-            onClick={()=>{navigate("/chat")}}
+            <i className="fa-solid fa-shapes"></i>
+            {showMenu && <p>Categories</p>}
+          </div>
+          <div
+            className="sidebar-tabs"
+            onClick={() => {
+              navigate("/chat");
+              setShowMenu(false);
+            }}
           >
-            Chat
-          </i>
-          <i
-            className="fa-solid fa-user"
-            onClick={()=>{navigate("/account")}}
+            <i className="fa-solid fa-comment"></i>
+            {showMenu && <p>Chat</p>}
+          </div>
+          <div
+            className="sidebar-tabs"
+            onClick={() => {
+              navigate("/account");
+              setShowMenu(false);
+            }}
           >
-            Account
-          </i>
+            <i className="fa-solid fa-user"></i>
+            {showMenu && <p>Account</p>}
+          </div>
         </div>
 
         <div className="category-store-container">{renderContent()}</div>

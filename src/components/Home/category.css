@@ -1,17 +1,18 @@
 .category-container {
   width: 90%;
   background-color: blueviolet;
-  height: 5rem;
+  height: 7rem;
   border-radius: 10px;
   overflow: hidden;
-  position: relative;
+  position: absolute;
   display: flex;
-  align-items: center;
   transition: height 0.8s ease;
+  top: 15px;
+  z-index: 100;
 }
 
 .category-container.expanded {
-  height: 20rem;
+  height: 13rem;
 }
 
 .category-icon-container {
@@ -25,11 +26,18 @@
   right: 0;
 }
 
-.category-icon-container img {
-  height: 61px;
+.category-icon {
+  height: 70px;
   background-color: white;
   border-radius: 68px;
+  margin-top: 15px;
   margin-left: 23px;
   margin-bottom: 15px;
+  /* margin: 23px 15px */
   cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.category-icon:hover {
+  box-shadow: 0 0 5px rgb(60, 60, 60);
 }

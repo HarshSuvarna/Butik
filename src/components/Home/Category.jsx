@@ -9,14 +9,14 @@ function Categories(props) {
     <div className={`category-container ${showAllCategories && "expanded"} `}>
       <div className="category-icon-container">
         {props.categories.map((c, i) => (
-          <Tooltip title={c.categoryName} arrow>
-            <img key={i} src={imagePath + c.icon} alt="" />
+          <Tooltip key={i} title={c.categoryName} arrow>
+            <img className="category-icon" src={imagePath + c.icon} alt="" />
           </Tooltip>
         ))}
       </div>
 
       <button onClick={() => setShowAllCategories(!showAllCategories)}>
-        {showAllCategories ? <i class="fa-solid fa-xmark"></i> : "View all"}
+        {showAllCategories ? <i className="fa-solid fa-xmark"></i> : "View all"}
       </button>
     </div>
   );
