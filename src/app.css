@@ -9,6 +9,8 @@
   margin: auto;
 }
 
+
+
 form {
   display: flex;
   flex-direction: column;
@@ -20,5 +22,5 @@ label {
 
 input {
   padding: 8px;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 }

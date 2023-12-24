@@ -8,6 +8,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Categories from "./Category";
 import Stores from "./Stores";
 import Loader from "../loader/loader";
+import Navbar from "./navbar";
 
 const Home = ({ cookies }) => {
   const [categories, setCategories] = useState([]);
@@ -59,6 +60,11 @@ const Home = ({ cookies }) => {
     );
   };
 
+  const handleShowMenuClick = () => {
+    setShowMenu(!showMenu);
+    return showMenu;
+  };
+
   const fetchData = async () => {
     try {
       const responses = await Promise.all([
@@ -83,23 +89,9 @@ const Home = ({ cookies }) => {
     }
   };
 
-  const logout = () => {
-    cookies.remove("jwt_authorization");
-  };
-
   return (
     <>
-      <div className="nav-bar">
-        <i
-          className={showMenu ? "fa-solid fa-arrow-left" : "fa-solid fa-list"}
-          onClick={() => setShowMenu(!showMenu)}
-          style={{ color: "white", marginLeft: "18px", fontSize: "20px" }}
-        />
-        <div className="right-container">
-          <input className="search" type="text" />
-          <button onClick={logout}>Logout</button>
-        </div>
-      </div>
+      <Navbar handleShowMenu={handleShowMenuClick} cookies={cookies} />
       <div className="body-content">
         <div className={`side-bar ${showMenu && "expanded"}`}>
           <div
