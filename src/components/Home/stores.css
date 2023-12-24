@@ -13,7 +13,14 @@
   padding: 4px;
   transition: grid-template-columns 1s;
   margin-top: 130px;
-  overflow: auto; /*scroll*/
+  overflow-y: auto; /*scroll*/
+  overflow-x: hidden;
+}
+
+@media (min-width: 1051px) {
+  .store-container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 @media (min-width: 651px) and (max-width: 1050px) {
@@ -50,7 +57,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  height: 150px;
+  height: 200px;
   border-radius: 10px;
   position: relative;
   gap: 10px;

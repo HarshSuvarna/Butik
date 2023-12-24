@@ -1,0 +1,16 @@
+.chat-container {
+  height: 90%;
+  width: 90%;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

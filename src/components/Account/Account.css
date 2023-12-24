@@ -1,0 +1,47 @@
+.account-container {
+  background-color: pink;
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.seller-section {
+  background-color: white;
+  width: 90%;
+  height: 20%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  margin-left: 2%;
+}
+
+.user-info {
+  background-color: white;
+  width: 90%;
+  height: 70%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  /* overflow: auto; */
+}
+
+.profile-pic {
+  background-color: brown;
+  border-radius: 48px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 3%;
+}

@@ -8,12 +8,15 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Categories from "./Category";
 import Stores from "./Stores";
 import Loader from "../loader/loader";
+import Account from "../Account/Account";
+import { useMyContext } from "../../context/AuthContext";
+import Chat from "../Chat/Chat";
 
 const Home = ({ cookies }) => {
   const [categories, setCategories] = useState([]);
   const [stores, setStores] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
-
+  const { contextValues, updateContextValue } = useMyContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,23 +37,13 @@ const Home = ({ cookies }) => {
           }
         />
         <Route path="/categories" exact element={<Loader />} />
-        <Route
-          path="/chat"
-          exact
-          element={
-            <>
-              <Categories categories={categories} />
-              <Stores stores={stores} />
-            </>
-          }
-        />
+        <Route path="/chat" exact element={<Chat />} />
         <Route
           path="/account"
           exact
           element={
             <>
-              <Categories categories={categories} />
-              <Stores stores={stores} />
+              <Account />
             </>
           }
         />
@@ -70,6 +63,7 @@ const Home = ({ cookies }) => {
       ]);
       const userData = responses[0];
       const location = responses[1];
+      updateContextValue("auth", userData?.data || {});
       setCategories(responses[2]?.data || []);
       const stores = await getNearestStores({
         latitude: location.latitude,
