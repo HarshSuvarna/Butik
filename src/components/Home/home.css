@@ -15,8 +15,24 @@
   width: 30%;
 }
 
+.left-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left-container img {
+  height: 45px;
+  margin-left: 38px;
+}
 .search {
   width: 70%;
+}
+
+@media (max-width: 800px) {
+  .search {
+    visibility: hidden;
+  }
 }
 
 .side-bar {
@@ -63,11 +79,13 @@
   margin-left: 4rem;
   position: relative;
   width: -webkit-fill-available;
+  height: 100%;
 }
 
 .body-content {
   display: flex;
   position: relative;
+  height: 92vh;
 }
 
 .sidebar-tabs {

@@ -84,11 +84,19 @@ const Home = ({ cookies }) => {
   return (
     <>
       <div className="nav-bar">
-        <i
-          className={showMenu ? "fa-solid fa-arrow-left" : "fa-solid fa-list"}
-          onClick={() => setShowMenu(!showMenu)}
-          style={{ color: "white", marginLeft: "18px", fontSize: "20px" }}
-        />
+        <div className="left-container">
+          <i
+            className={showMenu ? "fa-solid fa-arrow-left" : "fa-solid fa-list"}
+            onClick={() => setShowMenu(!showMenu)}
+            style={{ color: "white", marginLeft: "18px", fontSize: "20px" }}
+          />
+          <img
+            src="src/category-icons/logo.png"
+            alt=""
+            onClick={() => navigate("/home")}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
         <div className="right-container">
           <input className="search" type="text" />
           <button onClick={logout}>Logout</button>
