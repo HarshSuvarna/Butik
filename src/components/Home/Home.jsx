@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../services/auth.services";
 import "./home.css";
-import { getNearestStores, getLocation } from "../../services/stores.services";
-import { getAllCategories } from "../../services/categories.services";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Categories from "./Category";
 import Stores from "./Stores";
@@ -11,12 +9,11 @@ import Loader from "../loader/loader";
 import Account from "../Account/Account";
 import { useMyContext } from "../../context/AuthContext";
 import Chat from "../Chat/Chat";
+import CategoriesTab from "../Categories/Categoires-tab";
 
 const Home = ({ cookies }) => {
-  const [categories, setCategories] = useState([]);
-  const [stores, setStores] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
-  const { contextValues, updateContextValue } = useMyContext();
+  const { updateContextValue } = useMyContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,22 +28,16 @@ const Home = ({ cookies }) => {
           exact
           element={
             <>
-              <Categories categories={categories} />
-              <Stores stores={stores} />
+              <Categories />
+              <div className="store-div">
+                <Stores />
+              </div>
             </>
           }
         />
-        <Route path="/categories" exact element={<Loader />} />
+        <Route path="/categories" exact element={<CategoriesTab />} />
         <Route path="/chat" exact element={<Chat />} />
-        <Route
-          path="/account"
-          exact
-          element={
-            <>
-              <Account />
-            </>
-          }
-        />
+        <Route path="/account" exact element={<Account />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     );
@@ -54,23 +45,8 @@ const Home = ({ cookies }) => {
 
   const fetchData = async () => {
     try {
-      const responses = await Promise.all([
-        getUser(),
-        getLocation(),
-        getAllCategories({
-          categoryNames: [],
-        }),
-      ]);
-      const userData = responses[0];
-      const location = responses[1];
+      const userData = await getUser();
       updateContextValue("auth", userData?.data || {});
-      setCategories(responses[2]?.data || []);
-      const stores = await getNearestStores({
-        latitude: location.latitude,
-        longitude: location.longitude,
-        max_kms: 10000,
-      });
-      setStores(stores.data);
     } catch (e) {
       // Handle errors in the API call
       console.error(e.message || e.error || e);

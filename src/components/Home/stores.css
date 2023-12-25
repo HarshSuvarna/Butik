@@ -1,7 +1,7 @@
 
 
 .store-container {
-  width: 90%;
+  width: 100%;
   background-color: aqua;
   height: 30rem;
   border-radius: 10px;
@@ -10,7 +10,6 @@
   grid-gap: 5px 15px;
   padding: 4px;
   transition: grid-template-columns 1s;
-  margin-top: 130px;
   overflow-y: auto; /*scroll*/
   overflow-x: hidden;
 }

@@ -1,3 +1,11 @@
+.store-div{
+  width: 90%;
+  background-color: rgb(108, 192, 87);
+  height: 30rem;
+  border-radius: 10px;
+  margin-top: 130px;
+}
+
 .nav-bar {
   z-index: 100;
   background-color: blue;

@@ -1,9 +1,30 @@
+import { useEffect, useState } from "react";
 import "./stores.css";
+import { getLocation, getNearestStores } from "../../services/stores.services";
 
-function Stores(props) {
+function Stores() {
+  const [stores, setStores] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      console.log("sherheh");
+      const location = await getLocation();
+      const res = await getNearestStores({
+        latitude: location.latitude,
+        longitude: location.longitude,
+        max_kms: 10000,
+      });
+      setStores(res.data);
+    } catch (error) {}
+  };
+
   return (
     <div className="store-container">
-      {props.stores.map((s) => (
+      {stores.map((s) => (
         <div key={s.storeId} className="store-card">
           <img src={s.storeImageURL} alt="" />
           <div className="information-container">
