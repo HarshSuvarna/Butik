@@ -5,15 +5,17 @@ import "./home.css";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Categories from "./Category";
 import Stores from "./Stores";
-import Loader from "../loader/loader";
 import Account from "../Account/Account";
 import { useMyContext } from "../../context/AuthContext";
 import Chat from "../Chat/Chat";
 import CategoriesTab from "../Categories/Categoires-tab";
+import StoreView from "../StoreView/StoreView";
+import HomeTab from "../HomeTab/HomeTab";
+import { getLocation } from "../../services/stores.services";
 
 const Home = ({ cookies }) => {
   const [showMenu, setShowMenu] = useState(false);
-  const { updateContextValue } = useMyContext();
+  const { contextValues, updateContextValue } = useMyContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,30 +25,30 @@ const Home = ({ cookies }) => {
   const renderContent = () => {
     return (
       <Routes>
-        <Route
-          path="/home"
-          exact
-          element={
-            <>
-              <Categories />
-              <div className="store-div">
-                <Stores />
-              </div>
-            </>
-          }
-        />
+        <Route path="/home" exact element={<HomeTab />} />
         <Route path="/categories" exact element={<CategoriesTab />} />
         <Route path="/chat" exact element={<Chat />} />
         <Route path="/account" exact element={<Account />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path="/stores" exact element={<StoreView />} />
       </Routes>
     );
   };
 
   const fetchData = async () => {
     try {
-      const userData = await getUser();
-      updateContextValue("auth", userData?.data || {});
+      const responses = await Promise.all([getUser(), getLocation()]);
+      let userData = responses[0];
+      const location = responses[1];
+      console.log("location :>> ", location);
+      userData = {
+        ...userData.data,
+        latitude: location.latitude,
+        longitude: location.longitude,
+      }; 
+      console.log("userData :>> ", userData);
+      updateContextValue("auth", userData || {});
+      console.log("contextValues.auth :>> ", contextValues.auth);
     } catch (e) {
       // Handle errors in the API call
       console.error(e.message || e.error || e);

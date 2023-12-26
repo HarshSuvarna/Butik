@@ -1,0 +1,15 @@
+.stores-container {
+  width: 90%;
+  height: 95%;
+}
+
+.filter-container {
+  width: 100%;
+  background-color: blueviolet;
+  height: 7rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  justify-content: center;
+}

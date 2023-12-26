@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import "./category.css";
 import { Tooltip } from "@mui/material";
 import { getAllCategories } from "../../services/categories.services";
+import { useNavigate } from "react-router-dom";
 
-function Categories({ showSubcat }) {
+function Categories({ showSubcat = () => {}, showStores = () => {} }) {
   const imagePath = "src/category-icons/";
   const [categories, setCategories] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     fetchData();
   }, []);
@@ -22,7 +24,9 @@ function Categories({ showSubcat }) {
   };
 
   const handleClick = async (catId) => {
-    showSubcat(catId);
+    window.location.pathname === "/categories"
+      ? showSubcat(catId)
+      : navigate("/stores", { state: { catId, categories } });
   };
   return (
     <div className={`category-container ${showAllCategories && "expanded"} `}>

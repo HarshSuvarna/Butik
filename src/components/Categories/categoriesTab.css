@@ -12,10 +12,30 @@
 
 .subcategory-container {
   background-color: burlywood;
-  height: 50%;
+  height: auto;
   width: 50%;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  /* overflow: hidden; */
+  padding: 1%;
+  box-sizing: border-box;
+  gap: 8px;
+}
+
+.subcategories {
+  background-color: red;
+  height: 70px;
+  width: 70px;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: x-small;
+  font-weight: 600;
+  padding: 7%;
+  cursor: pointer;
 }

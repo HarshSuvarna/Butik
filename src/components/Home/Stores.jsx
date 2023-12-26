@@ -1,85 +1,134 @@
 import { useEffect, useState } from "react";
 import "./stores.css";
-import { getLocation, getNearestStores } from "../../services/stores.services";
+import {
+  getLocation,
+  getNearestStores,
+  getNearestStoresByCategory,
+  getNearestStoresBySubcategory,
+} from "../../services/stores.services";
+import { useMyContext } from "../../context/AuthContext";
 
-function Stores() {
+function Stores({
+  categoryId = undefined,
+  subcategoryId = undefined,
+  range = 50,
+}) {
   const [stores, setStores] = useState([]);
+  const { contextValues } = useMyContext();
+  const [userData, setUserData] = useState({ ...contextValues.auth });
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    // fetchData();
+    console.log("range 44:>> ", range);
+  }, [range]);
+
   const fetchData = async () => {
     try {
-      console.log("sherheh");
-      const location = await getLocation();
-      const res = await getNearestStores({
-        latitude: location.latitude,
-        longitude: location.longitude,
-        max_kms: 10000,
-      });
+      let latitude = userData.latitude;
+      let longitude = userData.longitude;
+      let res;
+      if (!latitude || !longitude) {
+        const location = await getLocation();
+        latitude = location.latitude;
+        longitude = location.longitude;
+      }
+      let req = {
+        latitude: userData?.latitude || location?.latitude || 55.8319,
+        longitude: userData?.longitude || location?.longitude || -4.4322,
+        max_kms: 10000, // Change THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+      };
+      if (window.location.pathname === "/stores" && categoryId) {
+        res = await getNearestStoresByCategory({ ...req, categoryId });
+
+        console.log("res :>> ", res);
+      } else if (window.location.pathname === "/stores" && subcategoryId) {
+        res = await getNearestStoresBySubcategory({
+          ...req,
+          subcategoryId,
+        });
+      } else {
+        res = await getNearestStores(req);
+      }
       setStores(res.data);
     } catch (error) {}
   };
 
   return (
     <div className="store-container">
-      {stores.map((s) => (
-        <div key={s.storeId} className="store-card">
-          <img src={s.storeImageURL} alt="" />
-          <div className="information-container">
-            <span style={{ display: "flex", alignItems: "center" }}>
-              <p
-                style={{
-                  fontWeight: "600",
-                  textTransform: "uppercase",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                {s.storeName}
-              </p>
-              <p
-                style={{
-                  fontSize: "11px",
-                  fontWeight: "600",
-                  color: "gray",
-                  marginLeft: "5px",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                {s.wholeSellerOrRetailer}
-              </p>
-            </span>
-            <p>{s.district || s.sublocality || s.locality}</p>
+      {stores.length ? (
+        stores.map((s) => (
+          <div key={s.storeId} className="store-card">
+            <img src={s.storeImageURL} alt="" />
+            <div className="information-container">
+              <span style={{ display: "flex", alignItems: "center" }}>
+                <p
+                  style={{
+                    fontWeight: "600",
+                    textTransform: "uppercase",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {s.storeName}
+                </p>
+                <p
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: "600",
+                    color: "gray",
+                    marginLeft: "5px",
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {s.wholeSellerOrRetailer}
+                </p>
+              </span>
+              <p>{s.district || s.sublocality || s.locality}</p>
 
-            <p
-              style={{
-                overflow: "hidden",
-                whiteSpace: "nowrap",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {s.state},&nbsp;{s.country}
-            </p>
-            <p
-              style={{
-                fontWeight: "600",
-                fontSize: "12px",
-                color: "green",
-                position: "absolute",
-                bottom: "1px",
-                right: "10px",
-              }}
-            >
-              {s.distance.toFixed(1)} KM
-            </p>
+              <p
+                style={{
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {s.state},&nbsp;{s.country}
+              </p>
+              <p
+                style={{
+                  fontWeight: "600",
+                  fontSize: "12px",
+                  color: "green",
+                  position: "absolute",
+                  bottom: "1px",
+                  right: "10px",
+                }}
+              >
+                {s.distance.toFixed(1)} KM
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <span
+          style={{
+            position: "absolute",
+            top: "15rem",
+            left: "27em",
+            fontWeight: "600",
+          }}
+        >
+          No Stores found
+          <p>Increase the range</p>
+        </span>
+      )}
     </div>
   );
 }
