@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 
-function ProductCard({ i, product }) {
-  const [productData, setProductData] = useState(product);
-  const [showProduct, setShowProduct] = useState(false);
-  const handleProductClick = () => {
-    console.log("p.productName :>> ", product.productName);
-    setShowProduct(true);
-    console.log("showProduct :>> ", showProduct);
-  };
+function ProductCard({ i, product, selectProduct }) {
   return (
     <div
       key={i}
       className="product-card"
       onClick={() => {
-        handleProductClick(product);
+        selectProduct(product.productId);
       }}
     >
       {product.productName}

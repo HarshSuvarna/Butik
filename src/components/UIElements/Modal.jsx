@@ -2,15 +2,23 @@ import React, { useEffect, useState } from "react";
 import "./modal.css";
 import { getProductsInStore } from "../../services/product.services";
 import ProductCard from "../../Products/ProductCard";
+import ProductView from "../../Products/ProductView";
 
 function Modal({ closeModal, store }) {
   const [showContent, setShowContent] = useState(false);
   const [products, setProducts] = useState([]);
+  const [ShowProductData, setShowProductData] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState("");
 
   useEffect(() => {
     setShowContent(true);
     fetchData();
   }, []);
+
+  function selectProduct(productId) {
+    setShowProductData(true);
+    setSelectedProductId(productId);
+  }
 
   const closeModalOnClick = (params) => {
     closeModal(false);
@@ -30,17 +38,25 @@ function Modal({ closeModal, store }) {
         onClick={(event) => event.stopPropagation()}
       >
         <button onClick={closeModalOnClick}> X </button>
-        <div className="modal-body">
-          <div className="store-image-name-container">
-            <img src={store?.storeImageURL || ""} alt="" />
+        {ShowProductData ? (
+          <ProductView selectedProductId={selectedProductId} />
+        ) : (
+          <div className="modal-body">
+            <div className="store-image-name-container">
+              <img src={store?.storeImageURL || ""} alt="" />
+            </div>
+            <div className="products-container">
+              {products.map((p, i) => (
+                <ProductCard
+                  i={i}
+                  product={p}
+                  selectProduct={selectProduct}
+                />
+              ))}
+            </div>
+            <div className="title"></div>
           </div>
-          <div className="products-container">
-            {products.map((p, i) => (
-              <ProductCard i={i} product={p} />
-            ))}
-          </div>
-          <div className="title"></div>
-        </div>
+        )}
 
         <div className="footer">
           <button onClick={closeModalOnClick}>back</button>{" "}

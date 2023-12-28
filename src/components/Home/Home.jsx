@@ -40,23 +40,22 @@ const Home = ({ cookies }) => {
       const responses = await Promise.all([getUser(), getLocation()]);
       let userData = responses[0];
       const location = responses[1];
-      console.log("location :>> ", location);
       userData = {
         ...userData.data,
         latitude: location.latitude,
         longitude: location.longitude,
-      }; 
-      console.log("userData :>> ", userData);
+      };
       updateContextValue("auth", userData || {});
-      console.log("contextValues.auth :>> ", contextValues.auth);
     } catch (e) {
       // Handle errors in the API call
       console.error(e.message || e.error || e);
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     cookies.remove("jwt_authorization");
+    const userData = await getUser();
+    navigate("/home");
   };
 
   return (
