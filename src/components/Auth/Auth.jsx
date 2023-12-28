@@ -7,7 +7,7 @@ import { getOtpAPI, sendOTP } from "../../services/auth.services";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { jwtDecode } from "jwt-decode";
-import Loader from "../loader/loader";
+import Loader from "../UIElements/loader";
 import { useMyContext } from "../../context/AuthContext";
 const Auth = ({ setIsAuthenticated, cookies }) => {
   const [countryCode, setCountryCode] = useState("");

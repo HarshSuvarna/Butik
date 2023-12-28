@@ -4,7 +4,7 @@ import Categories from "../Home/Category";
 import "./categoriesTab.css";
 import { Slider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import RangeSlider from "../loader/RangeSlider";
+import RangeSlider from "../UIElements/RangeSlider";
 
 function CategoriesTab() {
   const [subcategories, setSubcategories] = useState();

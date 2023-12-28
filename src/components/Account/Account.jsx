@@ -3,7 +3,7 @@ import { useMyContext } from "../../context/AuthContext";
 import "./account.css";
 import { getAllGenders } from "../../services/attributes.services";
 import { makeSeller, updateUser } from "../../services/user.services";
-import Loader from "../loader/loader";
+import Loader from "../UIElements/loader";
 
 function Account() {
   const { contextValues, updateContextValue } = useMyContext();

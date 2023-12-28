@@ -7,6 +7,7 @@ import {
   getNearestStoresBySubcategory,
 } from "../../services/stores.services";
 import { useMyContext } from "../../context/AuthContext";
+import Modal from "../UIElements/Modal";
 
 function Stores({
   categoryId = undefined,
@@ -16,15 +17,11 @@ function Stores({
   const [stores, setStores] = useState([]);
   const { contextValues } = useMyContext();
   const [userData, setUserData] = useState({ ...contextValues.auth });
-
+  const [openModal, setOpenModal] = useState(false);
+  const [store, setStore] = useState({});
   useEffect(() => {
     fetchData();
   }, []);
-
-  useEffect(() => {
-    // fetchData();
-    console.log("range 44:>> ", range);
-  }, [range]);
 
   const fetchData = async () => {
     try {
@@ -43,8 +40,6 @@ function Stores({
       };
       if (window.location.pathname === "/stores" && categoryId) {
         res = await getNearestStoresByCategory({ ...req, categoryId });
-
-        console.log("res :>> ", res);
       } else if (window.location.pathname === "/stores" && subcategoryId) {
         res = await getNearestStoresBySubcategory({
           ...req,
@@ -61,7 +56,14 @@ function Stores({
     <div className="store-container">
       {stores.length ? (
         stores.map((s) => (
-          <div key={s.storeId} className="store-card">
+          <div
+            key={s.storeId}
+            className="store-card"
+            onClick={() => {
+              setOpenModal(true);
+              setStore({ ...s });
+            }}
+          >
             <img src={s.storeImageURL} alt="" />
             <div className="information-container">
               <span style={{ display: "flex", alignItems: "center" }}>
@@ -128,6 +130,12 @@ function Stores({
           No Stores found
           <p>Increase the range</p>
         </span>
+      )}
+
+      {openModal && (
+        <Modal closeModal={setOpenModal} store={store}>
+          asdfasdfasdf
+        </Modal>
       )}
     </div>
   );

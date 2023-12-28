@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
-import Loader from "./components/loader/loader";
+import Loader from "./components/UIElements/loader";
 
 function App({ cookies }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

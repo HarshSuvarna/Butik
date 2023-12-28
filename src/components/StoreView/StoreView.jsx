@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Stores from "../Home/Stores";
 import "./storeView.css";
-import RangeSlider from "../loader/RangeSlider";
+import RangeSlider from "../UIElements/RangeSlider";
 import { useEffect, useState } from "react";
 // import { useHistory } from "react-router-dom";
 
