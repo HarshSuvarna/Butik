@@ -35,9 +35,13 @@
   margin-bottom: 15px;
   /* margin: 23px 15px */
   cursor: pointer;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, translate 0.5s;
 }
 
 .category-icon:hover {
-  box-shadow: 0 0 5px rgb(60, 60, 60);
+  translate: 0px -5px;
+}
+
+.category-icon:hover {
+  box-shadow: 0 0 10px rgb(60, 60, 60);
 }

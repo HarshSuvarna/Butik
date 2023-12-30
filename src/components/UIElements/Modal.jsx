@@ -20,8 +20,12 @@ function Modal({ closeModal, store }) {
     setSelectedProductId(productId);
   }
 
-  const closeModalOnClick = (params) => {
+  const closeModalOnClick = () => {
     closeModal(false);
+  };
+
+  const handleBackClick = () => {
+    ShowProductData ? setShowProductData(false) : closeModal(false);
   };
 
   async function fetchData() {
@@ -37,21 +41,21 @@ function Modal({ closeModal, store }) {
         className={`modal-container ${showContent && "show-modal"}`}
         onClick={(event) => event.stopPropagation()}
       >
-        <button onClick={closeModalOnClick}> X </button>
+        <button className="close-button" onClick={closeModalOnClick}>
+          {" "}
+          X{" "}
+        </button>
         {ShowProductData ? (
           <ProductView selectedProductId={selectedProductId} />
         ) : (
           <div className="modal-body">
             <div className="store-image-name-container">
               <img src={store?.storeImageURL || ""} alt="" />
+              <p className="store-name">{store?.storeName}</p>
             </div>
             <div className="products-container">
               {products.map((p, i) => (
-                <ProductCard
-                  i={i}
-                  product={p}
-                  selectProduct={selectProduct}
-                />
+                <ProductCard i={i} product={p} selectProduct={selectProduct} />
               ))}
             </div>
             <div className="title"></div>
@@ -59,7 +63,7 @@ function Modal({ closeModal, store }) {
         )}
 
         <div className="footer">
-          <button onClick={closeModalOnClick}>back</button>{" "}
+          <button onClick={handleBackClick}>back</button>{" "}
         </div>
       </div>
     </div>
