@@ -8,21 +8,28 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { jwtDecode } from "jwt-decode";
 import Loader from "../UIElements/loader";
-import { useMyContext } from "../../context/AuthContext";
+import Select from "react-select";
+
 const Auth = ({ setIsAuthenticated, cookies }) => {
-  const [countryCode, setCountryCode] = useState("");
+  const [countryCode, setCountryCode] = useState("+44");
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
-  const { contextValues, updateContextValue } = useMyContext();
+  const [otpSent, setOtpSent] = useState(false);
+  // const [time, setTime] = useState("");
 
-  useEffect(() => {
-    // You can perform additional actions here
-  }, [contextValues.otpSent]);
-
-  const handleCountryCodeChange = (e) => {
-    setCountryCode(e.target.value);
-  };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     let newTime = new Date();
+  //     let currentTime =
+  //       newTime.getHours().toString() +
+  //       ":" +
+  //       newTime.getMinutes().toString() +
+  //       ":" +
+  //       newTime.getSeconds().toString();
+  //     setTime(currentTime);
+  //   }, 1000);
+  // }, [time]);
 
   const handleMobileNumberChange = (e) => {
     const input = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
@@ -54,8 +61,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
       setLoading(true);
       const res = await sendOTP(data);
       if (res) {
-        // setOtpSent(true);
-        updateContextValue("otpSent", "true");
+        setOtpSent(true);
       }
     } catch (e) {
       console.log("e :>> ", e);
@@ -91,49 +97,47 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
   return (
     <div className="auth-container">
       <ToastContainer />
-      {!contextValues.otpSent && (
-        <>
-          <h2>Mobile Number Login</h2>
-          <form onSubmit={handleMobileNumberSubmit}>
+      {!otpSent ? (
+        <div className="phone-number-container">
+          <h2>Login</h2>
+          <form>
             <div className="country-code-select">
-              <label htmlFor="countryCode">Country Code:</label>
-              <select
-                id="countryCode"
-                name="countryCode"
-                value={countryCode}
-                onChange={handleCountryCodeChange}
+              <p>Country</p>
+              <div>
+                <Select
+                  options={countryCodes}
+                  onChange={(opt) => {
+                    setCountryCode(opt?.value);
+                    console.log("opt.value :>> ", opt.value);
+                  }}
+                  defaultValue={countryCodes[1] || "Select"}
+                  styles={{ width: "3px" }}
+                />
+              </div>
+              <p>Mobile</p>
+              <input
+                type="tel"
+                id="mobileNumber"
+                name="mobileNumber"
+                placeholder="Enter your mobile number"
+                value={mobileNumber}
+                maxLength={10}
+                onChange={handleMobileNumberChange}
                 required
-              >
-                <option value="" disabled>
-                  Select
-                </option>
-                {countryCodes.map((country, index) => (
-                  <option key={index} value={country.code}>
-                    {`${country.name} (${country.code})`}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
-            <label htmlFor="mobileNumber">Mobile Number</label>
-            <input
-              type="tel"
-              id="mobileNumber"
-              name="mobileNumber"
-              placeholder="Enter your mobile number"
-              value={mobileNumber}
-              maxLength={10}
-              onChange={handleMobileNumberChange}
-              required
-            />
-            <button type="submit">{loading ? <Loader /> : "Submit"}</button>
           </form>
-        </>
-      )}
-      {contextValues.otpSent && (
-        <>
+          <button onClick={handleMobileNumberSubmit} type="submit">
+            {loading ? <Loader height={"14px"} /> : "Send OTP"}
+          </button>
+
+          {/* <div className="time">{time}</div> */}
+        </div>
+      ) : (
+        <div className="otp-page-container">
           <h2>Verify OTP</h2>
-          <form onSubmit={handleOtpSubmit}>
-            <label htmlFor="otp">Enter OTP:</label>
+          <form>
+            <label htmlFor="otp">Enter OTP</label>
             <input
               type="text"
               id="otp"
@@ -143,17 +147,21 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
               onChange={handleOtpChange}
               required
             />
-            <button type="submit">{loading ? <Loader /> : "Verify OTP"}</button>
           </form>
-          <p
-            onClick={() => {
-              updateContextValue("otpSent", "false");
-              setOtp("");
-            }}
-          >
-            Back
-          </p>
-        </>
+          <div className="buttons-container">
+            <button onClick={handleOtpSubmit} type="submit">
+              {loading ? <Loader /> : "Verify OTP"}
+            </button>
+            <p
+              onClick={() => {
+                setOtpSent(false);
+                setOtp("");
+              }}
+            >
+              Back
+            </p>
+          </div>
+        </div>
       )}
     </div>
   );

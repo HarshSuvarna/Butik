@@ -54,8 +54,7 @@ const Home = ({ cookies }) => {
 
   const logout = async () => {
     cookies.remove("jwt_authorization");
-    const userData = await getUser();
-    navigate("/home");
+    window.location.reload();
   };
 
   return (
@@ -65,7 +64,7 @@ const Home = ({ cookies }) => {
           <i
             className={showMenu ? "fa-solid fa-arrow-left" : "fa-solid fa-list"}
             onClick={() => setShowMenu(!showMenu)}
-            style={{ color: "white", marginLeft: "18px", fontSize: "20px" }}
+            style={{ color: " rgb(99, 99, 99);", marginLeft: "18px", fontSize: "20px" }}
           />
           <img
             src="src/category-icons/logo.png"
@@ -88,8 +87,12 @@ const Home = ({ cookies }) => {
               setShowMenu(false);
             }}
           >
-            <i className="fa-solid fa-house icon-container"></i>
-            {showMenu && <p>Home</p>}
+            {showMenu && (
+              <p>
+                <i className="fa-solid fa-house icon-container" />
+                &nbsp; Home
+              </p>
+            )}
           </div>
           <div
             className="sidebar-tabs"
@@ -98,8 +101,12 @@ const Home = ({ cookies }) => {
               setShowMenu(false);
             }}
           >
-            <i className="fa-solid fa-shapes"></i>
-            {showMenu && <p>Categories</p>}
+            {showMenu && (
+              <p>
+                <i className="fa-solid fa-shapes" />
+                &nbsp; Categories
+              </p>
+            )}
           </div>
           <div
             className="sidebar-tabs"
@@ -108,8 +115,12 @@ const Home = ({ cookies }) => {
               setShowMenu(false);
             }}
           >
-            <i className="fa-solid fa-comment"></i>
-            {showMenu && <p>Chat</p>}
+            {showMenu && (
+              <p>
+                <i className="fa-solid fa-comment" />
+                &nbsp; Chat
+              </p>
+            )}
           </div>
           <div
             className="sidebar-tabs"
@@ -118,8 +129,12 @@ const Home = ({ cookies }) => {
               setShowMenu(false);
             }}
           >
-            <i className="fa-solid fa-user"></i>
-            {showMenu && <p>Account</p>}
+            {showMenu && (
+              <p>
+                <i className="fa-solid fa-user" />
+                &nbsp;Account
+              </p>
+            )}
           </div>
         </div>
 

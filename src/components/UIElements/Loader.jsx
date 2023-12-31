@@ -1,10 +1,8 @@
 import "./loader.css";
 
-const Loader = () => {
+const Loader = ({ dim }) => {
   return (
-    <>
-      <span className="loader"></span>
-    </>
+    <span style={{ height: "14px", width: "14px" }} className="loader"></span>
   );
 };
 
