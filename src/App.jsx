@@ -19,14 +19,18 @@ function App({ cookies }) {
 
   // Show loading spinner or other loading UI while checking authentication
   if (loading) {
-    return <>
-    <Loader/>
-    </>
+    return (
+      <>
+        <Loader />
+      </>
+    );
   }
 
   return (
-    <div className="main">
-      {!isAuthenticated && <Auth setIsAuthenticated={setIsAuthenticated} cookies={cookies} />}
+    <div style={{ height: "100vh" }} className="main">
+      {!isAuthenticated && (
+        <Auth setIsAuthenticated={setIsAuthenticated} cookies={cookies} />
+      )}
       {isAuthenticated && <Home cookies={cookies} />}
     </div>
   );

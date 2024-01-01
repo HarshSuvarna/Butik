@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { getUser } from "../../services/auth.services";
 import "./home.css";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import Categories from "./Category";
-import Stores from "./Stores";
 import Account from "../Account/Account";
 import { useMyContext } from "../../context/AuthContext";
 import Chat from "../Chat/Chat";
@@ -12,15 +10,28 @@ import CategoriesTab from "../Categories/Categoires-tab";
 import StoreView from "../StoreView/StoreView";
 import HomeTab from "../HomeTab/HomeTab";
 import { getLocation } from "../../services/stores.services";
+import Navbar from "../Navbar/Navbar";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Home = ({ cookies }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { contextValues, updateContextValue } = useMyContext();
-  const navigate = useNavigate();
-
+  const [path, setPath] = useState();
   useEffect(() => {
     fetchData();
+    window.addEventListener("click", (e) => {
+      if (
+        !e.target.classList.contains("fa-solid") &&
+        !e.target.classList.contains("fa-arrow-left")
+      ) {
+        setShowMenu(false);
+      }
+    });
   }, []);
+
+  useEffect(() => {
+    setPath(window.location.pathname);
+  }, [window.location.pathname]);
 
   const renderContent = () => {
     return (
@@ -47,97 +58,22 @@ const Home = ({ cookies }) => {
       };
       updateContextValue("auth", userData || {});
     } catch (e) {
-      // Handle errors in the API call
       console.error(e.message || e.error || e);
     }
   };
 
-  const logout = async () => {
-    cookies.remove("jwt_authorization");
-    window.location.reload();
-  };
-
   return (
     <>
-      <div className="nav-bar">
-        <div className="left-container">
-          <i
-            className={showMenu ? "fa-solid fa-arrow-left" : "fa-solid fa-list"}
-            onClick={() => setShowMenu(!showMenu)}
-            style={{ color: " rgb(99, 99, 99);", marginLeft: "18px", fontSize: "20px" }}
-          />
-          <img
-            src="src/category-icons/logo.png"
-            alt=""
-            onClick={() => navigate("/home")}
-            style={{ cursor: "pointer" }}
-          />
-        </div>
-        <div className="right-container">
-          <input className="search" type="text" />
-          <button onClick={logout}>Logout</button>
-        </div>
-      </div>
+      <Navbar setShowMenu={setShowMenu} showMenu={showMenu} cookies={cookies} />
+      <Sidebar showMenu={showMenu} />
       <div className="body-content">
-        <div className={`side-bar ${showMenu && "expanded"}`}>
-          <div
-            className="sidebar-tabs"
-            onClick={() => {
-              navigate("/home");
-              setShowMenu(false);
-            }}
-          >
-            {showMenu && (
-              <p>
-                <i className="fa-solid fa-house icon-container" />
-                &nbsp; Home
-              </p>
-            )}
-          </div>
-          <div
-            className="sidebar-tabs"
-            onClick={() => {
-              navigate("/categories");
-              setShowMenu(false);
-            }}
-          >
-            {showMenu && (
-              <p>
-                <i className="fa-solid fa-shapes" />
-                &nbsp; Categories
-              </p>
-            )}
-          </div>
-          <div
-            className="sidebar-tabs"
-            onClick={() => {
-              navigate("/chat");
-              setShowMenu(false);
-            }}
-          >
-            {showMenu && (
-              <p>
-                <i className="fa-solid fa-comment" />
-                &nbsp; Chat
-              </p>
-            )}
-          </div>
-          <div
-            className="sidebar-tabs"
-            onClick={() => {
-              navigate("/account");
-              setShowMenu(false);
-            }}
-          >
-            {showMenu && (
-              <p>
-                <i className="fa-solid fa-user" />
-                &nbsp;Account
-              </p>
-            )}
-          </div>
+        <div
+          className={`hero-space-container ${
+            path !== "/home" && "hide-hero-image"
+          }`}
+        >
+          <img src="src/category-icons/landing.png" alt="" />
         </div>
-
         <div className="category-store-container">{renderContent()}</div>
       </div>
     </>
