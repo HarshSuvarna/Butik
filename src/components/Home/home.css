@@ -2,19 +2,14 @@
   width: 90%;
   height: 30rem;
   border-radius: 10px;
-  margin-top: 130px;
 }
 
 .category-store-container {
-  height: 624px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  width: -webkit-fill-available;
-  height: 100%;
-  margin-top: 50px;
+  gap: 4rem;
 }
 
 .body-content {
@@ -22,6 +17,7 @@
   flex-direction: column;
   position: relative;
   height: 92vh;
+  gap: 4rem;
 }
 
 .hero-space-container {

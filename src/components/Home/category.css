@@ -1,25 +1,39 @@
 .category-container {
-  width: 90%;
-  background-color: blueviolet;
-  height: 7rem;
+  height: 250px;
   border-radius: 10px;
-  overflow: hidden;
-  position: absolute;
   display: flex;
-  transition: height 0.8s ease;
-  top: 15px;
   z-index: 100;
-}
-
-.category-container.expanded {
-  height: 13rem;
+  width: 90%;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 .category-icon-container {
-  height: 65px;
-  margin: 9px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
 }
 
+.cat-image-container {
+  height: 88%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  border-radius: 10px;
+  position: relative;
+  width: 150px;
+}
+
+.cat-image-container p {
+  width: 100%;
+  white-space: wrap;
+  padding: 5%;
+  position: absolute;
+  top: 0;
+  /* font-weight: bold; */
+  color: rgb(255 255 255);
+}
 .category-container button {
   position: absolute;
   top: 0;
@@ -27,21 +41,29 @@
 }
 
 .category-icon {
-  height: 70px;
-  background-color: white;
-  border-radius: 68px;
-  margin-top: 15px;
-  margin-left: 23px;
-  margin-bottom: 15px;
-  /* margin: 23px 15px */
+  height: 180px;
   cursor: pointer;
   transition: box-shadow 0.3s ease, translate 0.5s;
+  position: absolute;
+  bottom: -14px;
+  left: 10px;
 }
 
 .category-icon:hover {
   translate: 0px -5px;
 }
 
-.category-icon:hover {
-  box-shadow: 0 0 10px rgb(60, 60, 60);
+::-webkit-scrollbar {
+  height: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(233, 233, 233, 0.838);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #fffefe81;
 }
