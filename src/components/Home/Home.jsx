@@ -1,8 +1,8 @@
 // components/Home/Home.js
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getUser } from "../../services/auth.services";
 import "./home.css";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Account from "../Account/Account";
 import { useMyContext } from "../../context/AuthContext";
 import Chat from "../Chat/Chat";
@@ -17,6 +17,7 @@ const Home = ({ cookies }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { contextValues, updateContextValue } = useMyContext();
   const [path, setPath] = useState();
+  const bodyRef = useRef();
   useEffect(() => {
     fetchData();
     window.addEventListener("click", (e) => {
@@ -46,6 +47,10 @@ const Home = ({ cookies }) => {
     );
   };
 
+  function scrollToTarget() {
+    bodyRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+
   const fetchData = async () => {
     try {
       const responses = await Promise.all([getUser(), getLocation()]);
@@ -69,7 +74,7 @@ const Home = ({ cookies }) => {
       <div className="body-content">
         <div
           className={`hero-space-container ${
-            path !== "/home" && "hide-hero-image"
+            path !== "/home" && "hide-hero-container"
           }`}
         >
           <img
@@ -77,8 +82,19 @@ const Home = ({ cookies }) => {
             src="src/category-icons/landing.png"
             alt=""
           />
+          <div className={`text ${path !== "/home" && "hide-text"}`}>
+            <p className="title">Find Stores</p>
+            <p className="description">
+              Uncover hidden gems in your neighborhood with Butik. Explore
+              nearby stores offering a diverse range of products. Your next
+              great find is just a click away!
+            </p>
+            <button onClick={scrollToTarget}>Get Started</button>
+          </div>
         </div>
-        <div className="category-store-container">{renderContent()}</div>
+        <div className="category-store-container" ref={bodyRef}>
+          {renderContent()}
+        </div>
       </div>
     </>
   );

@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./category.css";
-import { Tooltip, colors } from "@mui/material";
 import { getAllCategories } from "../../services/categories.services";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +7,9 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
   const imagePath = "src/category-icons/";
   const [categories, setCategories] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const navigate = useNavigate();
+  const containerRef = useRef();
   useEffect(() => {
     fetchData();
   }, []);
@@ -21,6 +22,12 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
 
       setCategories(res?.data || []);
     } catch (error) {}
+  };
+
+  const handleHorizontalScroll = (scrollDistance) => {
+    const newScrollPosition = scrollPosition + scrollDistance;
+    setScrollPosition(newScrollPosition);
+    containerRef.current.scrollLeft += scrollDistance;
   };
 
   let colors = [
@@ -47,10 +54,14 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
       : navigate("/stores", { state: { catId, categories } });
   };
   return (
-    <div className={`category-container ${showAllCategories && "expanded"} `}>
-      <div className="category-icon-container">
-        {categories.map((c, i) => (
-          <Tooltip key={i} title={c.categoryName} arrow>
+    <div className="category-parent">
+      <p className="category-title">Shop Our Top Categories</p>
+      <div
+        ref={containerRef}
+        className={`category-container ${showAllCategories && "expanded"} `}
+      >
+        <div className="category-icon-container">
+          {categories.map((c, i) => (
             <div
               className="cat-image-container"
               style={{ backgroundColor: colors[i] }}
@@ -62,9 +73,21 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
               <p>{c.categoryName}</p>
               <img className="category-icon" src={imagePath + c.icon} alt="" />
             </div>
-          </Tooltip>
-        ))}
+          ))}
+        </div>
       </div>
+      <button
+        className="category-container-left"
+        onClick={() => handleHorizontalScroll(-1100)}
+      >
+        <i class="fa-solid fa-angle-left" />
+      </button>
+      <button
+        className="category-container-right"
+        onClick={() => handleHorizontalScroll(1100)}
+      >
+        <i class="fa-solid fa-angle-right" />
+      </button>
     </div>
   );
 }

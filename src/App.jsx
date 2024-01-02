@@ -27,10 +27,7 @@ function App({ cookies }) {
   }
 
   return (
-    <div
-      style={{ height: "100vh"}}
-      className="main"
-    >
+    <div className="main">
       {!isAuthenticated && (
         <Auth setIsAuthenticated={setIsAuthenticated} cookies={cookies} />
       )}

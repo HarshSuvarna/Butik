@@ -12,6 +12,8 @@
   height: 100%;
   font-family: "Arial", sans-serif;
   margin-top: 55px;
+  top: 0px;
+  /* bottom: 0px; */
 }
 
 .side-bar.expanded {

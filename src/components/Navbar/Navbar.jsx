@@ -69,7 +69,8 @@ function Navbar({ setShowMenu, showMenu, cookies }) {
           <i
             className="fa-solid fa-magnifying-glass"
             onClick={handleSearchClick}
-          ></i>
+            style={{ color: showSearchBox ? "white" : "black" }}
+          />
           <input className="search" type="text" />
         </div>
         <button onClick={logout}>Logout</button>

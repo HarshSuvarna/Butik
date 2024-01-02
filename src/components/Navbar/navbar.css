@@ -54,6 +54,7 @@
 .search {
   border: none;
   background: transparent;
+  color: white;
 }
 
 .search:focus {

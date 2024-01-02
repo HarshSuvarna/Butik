@@ -8,6 +8,7 @@ import {
 } from "../../services/stores.services";
 import { useMyContext } from "../../context/AuthContext";
 import Modal from "../UIElements/Modal";
+import StoreCard from "../StoreView/StoreCard";
 
 function Stores({
   categoryId = undefined,
@@ -53,90 +54,38 @@ function Stores({
   };
 
   return (
-    <div className="store-container">
-      {stores.length ? (
-        stores.map((s) => (
-          <div
-            key={s.storeId}
-            className="store-card"
-            onClick={() => {
-              setOpenModal(true);
-              setStore({ ...s });
+    <div className="store-parent">
+      <p className="store-title">Stores Near You!</p>
+      <div className="store-container">
+        {stores.length ? (
+          stores.map((s, i) => (
+            <StoreCard
+              setStore={setStore}
+              setOpenModal={setOpenModal}
+              s={s}
+              key={i}
+            />
+          ))
+        ) : (
+          <span
+            style={{
+              position: "absolute",
+              top: "15rem",
+              left: "27em",
+              fontWeight: "600",
             }}
           >
-            <img src={s.storeImageURL} alt="" />
-            <div className="information-container">
-              <span style={{ display: "flex", alignItems: "center" }}>
-                <p
-                  style={{
-                    fontWeight: "600",
-                    textTransform: "uppercase",
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                  }}
-                >
-                  {s.storeName}
-                </p>
-                <p
-                  style={{
-                    fontSize: "11px",
-                    fontWeight: "600",
-                    color: "gray",
-                    marginLeft: "5px",
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    textOverflow: "ellipsis",
-                  }}
-                >
-                  {s.wholeSellerOrRetailer}
-                </p>
-              </span>
-              <p>{s.district || s.sublocality || s.locality}</p>
+            No Stores found
+            <p>Increase the range</p>
+          </span>
+        )}
 
-              <p
-                style={{
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                {s.state},&nbsp;{s.country}
-              </p>
-              <p
-                style={{
-                  fontWeight: "600",
-                  fontSize: "12px",
-                  color: "green",
-                  position: "absolute",
-                  bottom: "1px",
-                  right: "10px",
-                }}
-              >
-                {s.distance.toFixed(1)} KM
-              </p>
-            </div>
-          </div>
-        ))
-      ) : (
-        <span
-          style={{
-            position: "absolute",
-            top: "15rem",
-            left: "27em",
-            fontWeight: "600",
-          }}
-        >
-          No Stores found
-          <p>Increase the range</p>
-        </span>
-      )}
-
-      {openModal && (
-        <Modal closeModal={setOpenModal} store={store}>
-          asdfasdfasdf
-        </Modal>
-      )}
+        {openModal && (
+          <Modal closeModal={setOpenModal} store={store}>
+            asdfasdfasdf
+          </Modal>
+        )}
+      </div>
     </div>
   );
 }
