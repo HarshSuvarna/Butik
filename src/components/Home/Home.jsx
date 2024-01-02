@@ -72,7 +72,11 @@ const Home = ({ cookies }) => {
             path !== "/home" && "hide-hero-image"
           }`}
         >
-          <img src="src/category-icons/landing.png" alt="" />
+          <img
+            className="hero-img"
+            src="src/category-icons/landing.png"
+            alt=""
+          />
         </div>
         <div className="category-store-container">{renderContent()}</div>
       </div>

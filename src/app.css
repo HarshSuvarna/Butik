@@ -1,10 +1,5 @@
 /* home.css */
 
-.auth-container {
-  max-width: 300px;
-  margin: auto;
-}
-
 form {
   display: flex;
   flex-direction: column;
@@ -19,4 +14,6 @@ label {
   margin-bottom: 16px;
 } */
 
-
+.main {
+  display: flex;
+}
