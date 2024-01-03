@@ -56,23 +56,21 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
   return (
     <div className="category-parent">
       <p className="category-title">Shop Our Top Categories</p>
-      <div
-        ref={containerRef}
-        className={`category-container ${showAllCategories && "expanded"} `}
-      >
+      <div ref={containerRef} className="category-container">
         <div className="category-icon-container">
           {categories.map((c, i) => (
-            <div
-              className="cat-image-container"
-              style={{ backgroundColor: colors[i] }}
-              onClick={() => {
-                console.log("click");
-                handleClick(c.categoryId);
-              }}
-            >
-              <p>{c.categoryName}</p>
-              <img className="category-icon" src={imagePath + c.icon} alt="" />
-            </div>
+            <>asdfadsf</>
+            // <div
+            //   className="cat-image-container"
+            //   style={{ backgroundColor: colors[i] }}
+            //   onClick={() => {
+            //     console.log("click");
+            //     handleClick(c.categoryId);
+            //   }}
+            // >
+            //   <p>{c.categoryName}</p>
+            //   <img className="category-icon" src={imagePath + c.icon} alt="" />
+            // </div>
           ))}
         </div>
       </div>
