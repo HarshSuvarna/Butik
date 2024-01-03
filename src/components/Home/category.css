@@ -64,10 +64,9 @@
   background: rgb(0 0 0 / 60%);
 }
 .category-icon-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 34px;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 35px;
 }
 
 .cat-image-container {
