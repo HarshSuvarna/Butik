@@ -42,8 +42,7 @@ function Modal({ closeModal, store }) {
         onClick={(event) => event.stopPropagation()}
       >
         <button className="close-button" onClick={closeModalOnClick}>
-          {" "}
-          X{" "}
+          <i class="fa-solid fa-x" />
         </button>
         {ShowProductData ? (
           <ProductView selectedProductId={selectedProductId} />
@@ -51,7 +50,9 @@ function Modal({ closeModal, store }) {
           <div className="modal-body">
             <div className="store-image-name-container">
               <img src={store?.storeImageURL || ""} alt="" />
-              <p className="store-name">{store?.storeName}</p>
+              <div className="store-name-div gradient-border">
+                <p className="store-name">{store?.storeName}</p>
+              </div>
             </div>
             <div className="products-container">
               {products.map((p, i) => (
@@ -63,7 +64,9 @@ function Modal({ closeModal, store }) {
         )}
 
         <div className="footer">
-          <button onClick={handleBackClick}>back</button>{" "}
+          <button className="back-button" onClick={handleBackClick}>
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
         </div>
       </div>
     </div>

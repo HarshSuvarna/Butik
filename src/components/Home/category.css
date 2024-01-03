@@ -12,9 +12,11 @@
   font-size: 26px;
   margin-bottom: 13px;
   font-weight: bold;
-  text-align: start;
-  width: 100%;
-  padding-left: 10%;
+  width: 90%;
+  color: #2b3237;
+  /* text-align: start; */
+  /* padding-left: 10%; */
+  /* background: red; */
 }
 
 .category-container {

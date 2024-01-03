@@ -17,10 +17,22 @@ function ProductCard({ i, product, selectProduct }) {
       </div>
       <div className="product-info">
         <span className="name-price">
-          <p style={{ fontWeight: "bold" }}>{product?.productName}</p>
+          <p
+            style={{
+              fontWeight: "bold",
+              fontSize: "23px",
+              color: "#2b3237",
+              width: "70%",
+            }}
+          >
+            {product?.productName}
+          </p>
           <Price price={price} />
         </span>
-        <p className="product-description" style={{ fontSize: "12px" }}>
+        <p
+          className="product-description"
+          style={{ fontSize: "12px", fontSize: "16px" }}
+        >
           {product?.productDescription || ""}
         </p>
       </div>
