@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getDetailedProductData } from "../services/product.services";
 import "./product-view.css";
 import Price from "../components/UIElements/Price";
+import { LoaderContext } from "../context/LoaderContext";
 
 function ProductView({ selectedProductId }) {
   const [product, setProduct] = useState();
@@ -13,6 +14,7 @@ function ProductView({ selectedProductId }) {
   const [selectedSizePrice, setSelectedSizePrice] = useState({});
   const [imagesUrlList, setImagesUrlList] = useState([]);
   const [selectedImage, setSelectedImage] = useState();
+  const { apiLoader, toggleLoading } = useContext(LoaderContext);
 
   useEffect(() => {
     fetchData();
@@ -49,6 +51,7 @@ function ProductView({ selectedProductId }) {
 
   const fetchData = async () => {
     try {
+      toggleLoading(true);
       const res = await getDetailedProductData({
         productId: selectedProductId,
       });
@@ -57,7 +60,10 @@ function ProductView({ selectedProductId }) {
       setVariant({ ...variantList[0] });
       setSizePriceList([...variantList[0].spqList]);
       setSellerData({ ...res?.data?.seller_details });
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      toggleLoading(false);
+    }
   };
 
   return (

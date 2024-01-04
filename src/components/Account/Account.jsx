@@ -1,24 +1,33 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useMyContext } from "../../context/AuthContext";
 import "./account.css";
 import { getAllGenders } from "../../services/attributes.services";
 import { makeSeller, updateUser } from "../../services/user.services";
 import Loader from "../UIElements/loader";
+import { LoaderContext } from "../../context/LoaderContext";
 
 function Account() {
   const { contextValues, updateContextValue } = useMyContext();
   const [userData, setUserData] = useState({ ...contextValues.auth });
   const [genders, setGenders] = useState([]);
   const [loader, setLoading] = useState(false);
+  const { apiLoader, toggleLoading } = useContext(LoaderContext);
+
   useEffect(() => {
     fetchData();
     setUserData({ ...contextValues.auth });
   }, []);
   const fetchData = async () => {
-    const res = await getAllGenders({
-      genderNames: [],
-    });
-    setGenders([...res?.data]);
+    try {
+      toggleLoading(true);
+      const res = await getAllGenders({
+        genderNames: [],
+      });
+      setGenders([...res?.data]);
+    } catch (error) {
+    } finally {
+      toggleLoading(false);
+    }
   };
 
   const handleSubmit = async () => {
@@ -29,23 +38,20 @@ function Account() {
       setLoading(false);
     } catch (e) {
       console.log(e?.message || e?.error || e);
+    } finally {
+      toggleLoading(false);
     }
   };
 
   const makeUserSeller = async () => {
     try {
+      toggleLoading(true);
       const res = await makeSeller({ uid: userData.uid });
       setUserData({ ...userData, isSeller: true });
     } catch (e) {
       console.log(e?.message || e?.error || e);
-    }
-  };
-
-  const showUserStores = async () => {
-    try {
-      console.log("Show user stores");
-    } catch (e) {
-      console.log(e?.message || e?.error || e);
+    } finally {
+      toggleLoading(false);
     }
   };
 

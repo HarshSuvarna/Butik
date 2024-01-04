@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./stores.css";
 import {
   getLocation,
@@ -9,6 +9,7 @@ import {
 import { useMyContext } from "../../context/AuthContext";
 import Modal from "../UIElements/Modal";
 import StoreCard from "../StoreView/StoreCard";
+import { LoaderContext } from "../../context/LoaderContext";
 
 function Stores({
   categoryId = undefined,
@@ -20,12 +21,15 @@ function Stores({
   const [userData, setUserData] = useState({ ...contextValues.auth });
   const [openModal, setOpenModal] = useState(false);
   const [store, setStore] = useState({});
+  const { apiLoader, toggleLoading } = useContext(LoaderContext);
+
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
+      toggleLoading(true);
       let latitude = userData.latitude;
       let longitude = userData.longitude;
       let res;
@@ -50,7 +54,10 @@ function Stores({
         res = await getNearestStores(req);
       }
       setStores(res.data);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      toggleLoading(false);
+    }
   };
 
   return (

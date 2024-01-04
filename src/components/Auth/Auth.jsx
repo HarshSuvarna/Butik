@@ -64,7 +64,6 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
         setOtpSent(true);
       }
     } catch (e) {
-      console.log("e :>> ", e);
       toast("Invalid phone number");
       console.log("Error:", e.message || e.error || e);
     } finally {
@@ -108,7 +107,6 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
                   options={countryCodes}
                   onChange={(opt) => {
                     setCountryCode(opt?.value);
-                    console.log("opt.value :>> ", opt.value);
                   }}
                   defaultValue={countryCodes[1] || "Select"}
                   styles={{ width: "3px" }}

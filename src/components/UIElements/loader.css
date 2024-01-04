@@ -1,6 +1,4 @@
 .loader {
-  height: 14px;
-  width: 14px;
   border: 3px solid #fff;
   border-bottom-color: transparent;
   border-radius: 50%;
@@ -27,4 +25,17 @@
   border-radius: 10px;
   display: flex;
   margin: auto;
+}
+
+.api-loader-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #0000005a;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

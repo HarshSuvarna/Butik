@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import "./category.css";
 import { getAllCategories } from "../../services/categories.services";
 import { useNavigate } from "react-router-dom";
+import { LoaderContext } from "../../context/LoaderContext";
 
 function Categories({ showSubcat = () => {}, showStores = () => {} }) {
   const imagePath = "src/category-icons/";
@@ -10,18 +11,24 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const navigate = useNavigate();
   const containerRef = useRef();
+  const { apiLoader, toggleLoading } = useContext(LoaderContext);
+
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
+      toggleLoading(true);
       const res = await getAllCategories({
         categoryNames: [],
       });
 
       setCategories(res?.data || []);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      toggleLoading(false);
+    }
   };
 
   const handleHorizontalScroll = (scrollDistance) => {
@@ -59,14 +66,13 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
       <div ref={containerRef} className="category-container">
         <div className="category-icon-container">
           {categories.map((c, i) => (
-            // <>asdfadsf</>
             <div
               className="cat-image-container"
               style={{ backgroundColor: colors[i] }}
               onClick={() => {
-                console.log("click");
                 handleClick(c.categoryId);
               }}
+              key={i}
             >
               <p>{c.categoryName}</p>
               <img className="category-icon" src={imagePath + c.icon} alt="" />
@@ -78,13 +84,13 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
         className="category-container-left"
         onClick={() => handleHorizontalScroll(-1100)}
       >
-        <i class="fa-solid fa-angle-left" />
+        <i className="fa-solid fa-angle-left" />
       </button>
       <button
         className="category-container-right"
         onClick={() => handleHorizontalScroll(1100)}
       >
-        <i class="fa-solid fa-angle-right" />
+        <i className="fa-solid fa-angle-right" />
       </button>
     </div>
   );

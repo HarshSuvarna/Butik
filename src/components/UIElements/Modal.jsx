@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./modal.css";
 import { getProductsInStore } from "../../services/product.services";
 import ProductCard from "../../Products/ProductCard";
 import ProductView from "../../Products/ProductView";
+import { LoaderContext } from "../../context/LoaderContext";
 
 function Modal({ closeModal, store }) {
   const [showContent, setShowContent] = useState(false);
   const [products, setProducts] = useState([]);
   const [ShowProductData, setShowProductData] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState("");
+  const { apiLoader, toggleLoading } = useContext(LoaderContext);
 
   useEffect(() => {
     setShowContent(true);
@@ -30,9 +32,13 @@ function Modal({ closeModal, store }) {
 
   async function fetchData() {
     try {
+      toggleLoading(true);
       const res = await getProductsInStore({ storeId: store.storeId });
       setProducts([...(res?.data || [])]);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      toggleLoading(false);
+    }
   }
 
   return (
@@ -42,7 +48,7 @@ function Modal({ closeModal, store }) {
         onClick={(event) => event.stopPropagation()}
       >
         <button className="close-button" onClick={closeModalOnClick}>
-          <i class="fa-solid fa-x" />
+          <i className="fa-solid fa-x" />
         </button>
         {ShowProductData ? (
           <ProductView selectedProductId={selectedProductId} />
@@ -56,7 +62,11 @@ function Modal({ closeModal, store }) {
             </div>
             <div className="products-container">
               {products.map((p, i) => (
-                <ProductCard i={i} product={p} selectProduct={selectProduct} />
+                <ProductCard
+                  key={i}
+                  product={p}
+                  selectProduct={selectProduct}
+                />
               ))}
             </div>
             <div className="title"></div>
@@ -65,7 +75,7 @@ function Modal({ closeModal, store }) {
 
         <div className="footer">
           <button className="back-button" onClick={handleBackClick}>
-            <i class="fa-solid fa-arrow-left"></i>
+            <i className="fa-solid fa-arrow-left"></i>
           </button>
         </div>
       </div>

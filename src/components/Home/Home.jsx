@@ -1,5 +1,5 @@
 // components/Home/Home.js
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { getUser } from "../../services/auth.services";
 import "./home.css";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -12,6 +12,8 @@ import HomeTab from "../HomeTab/HomeTab";
 import { getLocation } from "../../services/stores.services";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
+import { LoaderContext } from "../../context/LoaderContext";
+import ApiLoader from "../UIElements/ApiLoader";
 
 const Home = ({ cookies }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -28,10 +30,13 @@ const Home = ({ cookies }) => {
         setShowMenu(false);
       }
     });
+    setPath(window.location.pathname);
   }, []);
 
+  const { apiLoader, toggleLoading } = useContext(LoaderContext);
   useEffect(() => {
     setPath(window.location.pathname);
+    console.log("path :>> ", path);
   }, [window.location.pathname]);
 
   const renderContent = () => {
@@ -41,8 +46,8 @@ const Home = ({ cookies }) => {
         <Route path="/categories" exact element={<CategoriesTab />} />
         <Route path="/chat" exact element={<Chat />} />
         <Route path="/account" exact element={<Account />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
         <Route path="/stores" exact element={<StoreView />} />
+        <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     );
   };
@@ -53,6 +58,7 @@ const Home = ({ cookies }) => {
 
   const fetchData = async () => {
     try {
+      toggleLoading(true);
       const responses = await Promise.all([getUser(), getLocation()]);
       let userData = responses[0];
       const location = responses[1];
@@ -62,6 +68,7 @@ const Home = ({ cookies }) => {
         longitude: location.longitude,
       };
       updateContextValue("auth", userData || {});
+      toggleLoading(false);
     } catch (e) {
       console.error(e.message || e.error || e);
     }
@@ -69,6 +76,7 @@ const Home = ({ cookies }) => {
 
   return (
     <>
+      <ApiLoader />
       <Navbar setShowMenu={setShowMenu} showMenu={showMenu} cookies={cookies} />
       <Sidebar showMenu={showMenu} />
       <div className="body-content">
