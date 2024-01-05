@@ -13,7 +13,7 @@ function StoreView() {
 
   let navigate = useNavigate();
 
-  let { catId, subcategoryId, range, subcategories, categories } =
+  let { catId, subcategoryId, range, subcategories, categories, color } =
     location.state || {};
   useEffect(() => {
     setCategory({ ...(categories || []).find((c) => c.categoryId === catId) });
@@ -25,16 +25,16 @@ function StoreView() {
     <div className="stores-container">
       <div className="filter-container">
         <i className="fa-solid fa-arrow-left" onClick={() => navigate(-1)} />
-        <div>
-          <p>
-            Showing all stores with{" "}
-            {category?.categoryName || subcategory?.subcategoryName}{" "}
+        <span className="store-text">
+          &nbsp;Showing all stores with&nbsp;
+          <p style={{ margin: "0px", color: color }}>
+            {category?.categoryName || subcategory?.subcategoryName}
           </p>
           <p style={{ visibility: !range && "hidden" }}>
             Range:
             {range} kms
           </p>
-        </div>
+        </span>
       </div>
       <Stores categoryId={catId} subcategoryId={subcategoryId} range={range} />
     </div>

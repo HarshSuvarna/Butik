@@ -1,15 +1,45 @@
 .stores-container {
   width: 90%;
   height: 95%;
+  /* font-family: "Martel Sans", sans-serif; */
 }
 
 .filter-container {
-  width: 100%;
-  background-color: blueviolet;
+  width: 116%;
   height: 7rem;
   border-radius: 10px;
+  /* background-color: gray; */
   display: flex;
-  align-items: center;
   margin-bottom: 10px;
-  justify-content: center;
+  justify-content: end;
+  transform: translatex(0px);
+}
+.store-text {
+  font-size: 4rem;
+  animation: slide 1s;
+  height: 100%;
+  font-weight: 400;
+  font-family: "Bebas Neue", sans-serif;
+  display: flex;
+  justify-content: end;
+  margin-top: 30px;
+  flex-direction: row;
+  align-items: end;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-200px);
+  }
+}
+
+.filter-container i {
+  font-size: 35px;
+  transition: all 0.5s;
+}
+
+.filter-container i:hover {
+  transform: translateX(-10px);
 }

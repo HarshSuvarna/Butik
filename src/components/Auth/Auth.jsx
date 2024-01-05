@@ -1,7 +1,7 @@
 // components/Auth/Auth.js
 
 import React, { useState, useEffect } from "react";
-import countryCodes from "../../countryCodes.json";
+import { countryCodes } from "../../constants";
 import "./auth.css";
 import { getOtpAPI, sendOTP } from "../../services/auth.services";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,8 +16,8 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
-  // const [time, setTime] = useState("");
 
+  // const [time, setTime] = useState("");
   // useEffect(() => {
   //   setTimeout(() => {
   //     let newTime = new Date();
@@ -32,7 +32,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
   // }, [time]);
 
   const handleMobileNumberChange = (e) => {
-    const input = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    const input = e.target.value.replace(/\D/g, "");
     setMobileNumber(input);
   };
 

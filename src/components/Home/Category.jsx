@@ -3,6 +3,7 @@ import "./category.css";
 import { getAllCategories } from "../../services/categories.services";
 import { useNavigate } from "react-router-dom";
 import { LoaderContext } from "../../context/LoaderContext";
+import { colors } from "../../constants";
 
 function Categories({ showSubcat = () => {}, showStores = () => {} }) {
   const imagePath = "src/category-icons/";
@@ -37,28 +38,10 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
     containerRef.current.scrollLeft += scrollDistance;
   };
 
-  let colors = [
-    "#F1AA26",
-    "#7B0555",
-    "#24A1BC",
-    "#C5143E",
-    "#F98E3D",
-    "#4169E2",
-    "#006E5E",
-    "#CB6D51",
-    "#749255",
-    "#51111B",
-    "#FAD95B",
-    "#C85B8A",
-    "#FF5C1E",
-    "#CCCAC9",
-    "#BBE8B1",
-  ];
-
-  const handleClick = async (catId) => {
+  const handleClick = async (catId, color) => {
     window.location.pathname === "/categories"
       ? showSubcat(catId)
-      : navigate("/stores", { state: { catId, categories } });
+      : navigate("/stores", { state: { catId, categories, color } });
   };
   return (
     <div className="category-parent">
@@ -70,7 +53,7 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
               className="cat-image-container"
               style={{ backgroundColor: colors[i] }}
               onClick={() => {
-                handleClick(c.categoryId);
+                handleClick(c.categoryId, colors[i]);
               }}
               key={i}
             >
