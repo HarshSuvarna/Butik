@@ -4,7 +4,7 @@ import "./product-view.css";
 import Price from "../components/UIElements/Price";
 import { LoaderContext } from "../context/LoaderContext";
 
-function ProductView({ selectedProductId }) {
+function ProductView({ selectedProductId, store, showDirection }) {
   const [product, setProduct] = useState();
   const [sellerData, setSellerData] = useState({});
   const [variantList, setVariantList] = useState([]);
@@ -68,71 +68,87 @@ function ProductView({ selectedProductId }) {
 
   return (
     <div className="product-container">
-      <div className="variant-images-selecter">
-        {(imagesUrlList || []).map((image) => (
-          <div className="variant-image-container">
-            <img
-              src={image}
-              alt=""
-              className={`variant-image ${
-                image === selectedImage && "image-transparency"
-              }`}
-              onClick={() => setSelectedImage(image)}
-            />
-          </div>
-        ))}
-      </div>
-      <div className="product-variant-image">
-        <img src={selectedImage} alt="" />
-      </div>
-      <div className="product-variant-details">
-        <div className="product-category-container">
-          <p>{product?.categoryName}</p>
-          <p>{product?.subcategoryName}</p>
-        </div>
-        <div className="name-description-container">
-          <p className="product-name">{product?.productName}</p>
-          <p>{product?.productDescription}</p>
-        </div>
-        <div>
-          <p style={{ margin: "0", fontSize: "12px" }}>Colour</p>
-          <div className="color-variants">
-            {(variantList || []).map((v, i) => (
-              <p
-                className={`color-variants-span ${
-                  v?.variantId === selectedVariant?.variantId && "selected"
+      <div className="product-store-info">
+        <div className="variant-images-selecter">
+          {(imagesUrlList || []).map((image, i) => (
+            <div key={i} className="variant-image-container">
+              <img
+                src={image}
+                alt=""
+                className={`variant-image ${
+                  image === selectedImage && "image-transparency"
                 }`}
-                onClick={() => selectVariant(v)}
-                key={i}
-              >
-                {v?.color || ""}
-              </p>
-            ))}
-          </div>
+                onClick={() => setSelectedImage(image)}
+              />
+            </div>
+          ))}
         </div>
-        <div>
-          <p style={{ margin: "0", fontSize: "12px", marginBottom: "13px" }}>
-            Size
-          </p>
-          <div className="size-container">
-            {(sizePriceList || []).map((sp, i) => (
-              <div
-                className={`sizes ${
-                  sp?.spqId === selectedSizePrice?.spqId && "selected"
-                }`}
-                onClick={() => selectSizePrice(sp)}
-                key={i}
-              >
-                <p>{sp?.size}</p>
-              </div>
-            ))}
-          </div>
+        <div className="product-variant-image">
+          <img src={selectedImage} alt="" />
         </div>
-        <Price
-          size={"30px"}
-          weight={"100"}
-          price={selectedSizePrice?.price?.toString() || "0.00"}
-        />
+        <div className="product-variant-details">
+          <div className="product-category-container">
+            <p>{product?.categoryName}</p>
+            <p>{product?.subcategoryName}</p>
+          </div>
+          <div className="name-description-container">
+            <p className="product-name">{product?.productName}</p>
+            <p>{product?.productDescription}</p>
+          </div>
+          <div>
+            <p style={{ margin: "0", fontSize: "12px" }}>Colour</p>
+            <div className="color-variants">
+              {(variantList || []).map((v, i) => (
+                <p
+                  className={`color-variants-span ${
+                    v?.variantId === selectedVariant?.variantId && "selected"
+                  }`}
+                  onClick={() => selectVariant(v)}
+                  key={i}
+                >
+                  {v?.color || ""}
+                </p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p style={{ margin: "0", fontSize: "12px", marginBottom: "13px" }}>
+              Size
+            </p>
+            <div className="size-container">
+              {(sizePriceList || []).map((sp, i) => (
+                <div
+                  className={`sizes ${
+                    sp?.spqId === selectedSizePrice?.spqId && "selected"
+                  }`}
+                  onClick={() => selectSizePrice(sp)}
+                  key={i}
+                >
+                  <p>{sp?.size}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <Price
+            size={"30px"}
+            weight={"100"}
+            price={selectedSizePrice?.price?.toString() || "0.00"}
+          />
+        </div>
+      </div>
+      <div className="store-info">
+        <p>{store.storeName}</p>
+        <button onClick={showDirection} className="direction-buttons">
+          <i className="fa-solid fa-location-dot"></i>
+        </button>
+        <button
+          className="call-buttons"
+          onClick={() => {
+            navigator.clipboard.writeText(store?.storePhone);
+          }}
+        >
+          <i className="fa-solid fa-phone"></i>
+        </button>
       </div>
     </div>
   );

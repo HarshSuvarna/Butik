@@ -4,7 +4,7 @@ import { getProductsInStore } from "../../services/product.services";
 import ProductCard from "../../Products/ProductCard";
 import ProductView from "../../Products/ProductView";
 import { LoaderContext } from "../../context/LoaderContext";
-
+import { googleMapsLink } from "../../constants";
 function Modal({ closeModal, store }) {
   const [showContent, setShowContent] = useState(false);
   const [products, setProducts] = useState([]);
@@ -21,7 +21,13 @@ function Modal({ closeModal, store }) {
     setShowProductData(true);
     setSelectedProductId(productId);
   }
-
+  const showDirection = () => {
+    let directionLink = googleMapsLink.replace(
+      "{}",
+      store.latitude + "," + store.longitude
+    );
+    window.open(directionLink, "_blank", "noreferrer");
+  };
   const closeModalOnClick = () => {
     closeModal(false);
   };
@@ -47,14 +53,34 @@ function Modal({ closeModal, store }) {
         className={`modal-container ${showContent && "show-modal"}`}
         onClick={(event) => event.stopPropagation()}
       >
+        <button className="back-button" onClick={handleBackClick}>
+          <i className="fa-solid fa-arrow-left"></i>
+        </button>
         <button className="close-button" onClick={closeModalOnClick}>
           <i className="fa-solid fa-x" />
         </button>
         {ShowProductData ? (
-          <ProductView selectedProductId={selectedProductId} />
+          <ProductView
+            selectedProductId={selectedProductId}
+            store={store}
+            showDirection={showDirection}
+          />
         ) : (
           <div className="modal-body">
             <div className="store-image-name-container">
+              <img className="bg-img" src={store?.storeImageURL} alt="" />
+              <button onClick={showDirection} className="direction-button">
+                <i className="fa-solid fa-location-dot"></i>
+              </button>
+              <button
+                className="call-button"
+                onClick={() => {
+                  navigator.clipboard.writeText(store?.storePhone);
+                }}
+              >
+                <i class="fa-solid fa-phone"></i>
+              </button>
+
               <img src={store?.storeImageURL || ""} alt="" />
               <div className="store-name-div gradient-border">
                 <p className="store-name">{store?.storeName}</p>
@@ -73,11 +99,7 @@ function Modal({ closeModal, store }) {
           </div>
         )}
 
-        <div className="footer">
-          <button className="back-button" onClick={handleBackClick}>
-            <i className="fa-solid fa-arrow-left"></i>
-          </button>
-        </div>
+        <div className="footer"></div>
       </div>
     </div>
   );

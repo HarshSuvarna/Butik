@@ -1,6 +1,20 @@
 .product-container {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  box-sizing: border-box;
+  padding: 0px 20px;
+  gap: 20px;
+  color: #2b3237;
+  flex-direction: column;
+}
+
+.product-store-info {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
   height: 92%;
@@ -9,6 +23,23 @@
   padding: 0px 20px;
   gap: 20px;
   color: #2b3237;
+}
+
+.store-info {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+  border-top: 1px solid #2b323729;
+}
+.store-info p {
+  font-family: "Martel Sans", sans-serif;
+  text-transform: uppercase;
+  border-right: 1px solid #2b32374a;
+  padding: 0px 10px;
+  cursor: context-menu;
 }
 
 .variant-images-selecter {
@@ -139,6 +170,34 @@
 }
 
 .name-description-container {
-  border-bottom: 1px solid lightslategray;
+  border-bottom: 1px solid #00000038;
   width: 70%;
+}
+.direction-buttons {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.5s;
+  font-size: 20px;
+  color: #2b3237;
+}
+
+.direction-buttons:hover {
+  transform: translateY(-5px);
+  color: red;
+}
+
+.call-buttons {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.5s;
+  font-size: 20px;
+  color: #2b3237;
+  cursor: copy;
+}
+
+.call-buttons:hover {
+  transform: translateY(-5px);
+  color: rgb(43, 214, 0);
 }

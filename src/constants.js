@@ -1,3 +1,6 @@
+export const googleMapsLink =
+  "https://www.google.com/maps?saddr=My+Location&daddr={}";
+
 export const colors = [
   "#F1AA26",
   "#7B0555",
