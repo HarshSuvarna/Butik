@@ -5,10 +5,10 @@ import SidebarTabs from "./SidebarTabs";
 
 function Sidebar({ showMenu }) {
   const tabs = [
-    { name: "Home", path: "Butik/home", icon: "house" },
-    { name: "Categories", path: "Butik/categories", icon: "shapes" },
-    { name: "Chat", path: "Butik/chat", icon: "comment" },
-    { name: "Account", path: "Butik/account", icon: "user" },
+    { name: "Home", path: "/home", icon: "house" },
+    { name: "Categories", path: "/categories", icon: "shapes" },
+    { name: "Chat", path: "/chat", icon: "comment" },
+    { name: "Account", path: "/account", icon: "user" },
   ];
   return (
     <div className={`side-bar ${showMenu && "expanded"}`}>

@@ -43,10 +43,10 @@ function Stores({
         longitude: userData?.longitude || location?.longitude || -4.4322,
         max_kms: 10000, // Change THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
       };
-      if (window.location.pathname === "/Butik/stores" && categoryId) {
+      if (window.location.pathname === "/stores" && categoryId) {
         res = await getNearestStoresByCategory({ ...req, categoryId });
       } else if (
-        window.location.pathname === "/Butik/stores" &&
+        window.location.pathname === "/stores" &&
         subcategoryId
       ) {
         res = await getNearestStoresBySubcategory({

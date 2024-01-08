@@ -41,12 +41,12 @@ const Home = ({ cookies }) => {
   const renderContent = () => {
     return (
       <Routes>
-        <Route path="/Butik/home" exact element={<HomeTab />} />
-        <Route path="/Butik/categories" exact element={<CategoriesTab />} />
-        <Route path="/Butik/chat" exact element={<Chat />} />
-        <Route path="Butik/account" exact element={<Account />} />
-        <Route path="Butik/stores" exact element={<StoreView />} />
-        <Route path="Butik/*" element={<Navigate to="Butik/home" replace />} />
+        <Route path="/home" exact element={<HomeTab />} />
+        <Route path="/categories" exact element={<CategoriesTab />} />
+        <Route path="/chat" exact element={<Chat />} />
+        <Route path="/account" exact element={<Account />} />
+        <Route path="/stores" exact element={<StoreView />} />
+        <Route path="/*" element={<Navigate to="/home" replace />} />
       </Routes>
     );
   };
@@ -81,11 +81,11 @@ const Home = ({ cookies }) => {
       <div className="body-content">
         <div
           className={`hero-space-container ${
-            path !== "/Butik/home" && "hide-hero-container"
+            path !== "/home" && "hide-hero-container"
           }`}
         >
           <img className="hero-img" src={landing} alt="" />
-          <div className={`text ${path !== "/Butik/home" && "hide-text"}`}>
+          <div className={`text ${path !== "/home" && "hide-text"}`}>
             <p className="title">Find Stores</p>
             <p className="description">
               Uncover hidden gems in your neighborhood with Butik. Explore
