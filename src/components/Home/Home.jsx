@@ -41,9 +41,9 @@ const Home = ({ cookies }) => {
   const renderContent = () => {
     return (
       <Routes>
-        <Route path="Butik/home" exact element={<HomeTab />} />
-        <Route path="Butik/categories" exact element={<CategoriesTab />} />
-        <Route path="Butik/chat" exact element={<Chat />} />
+        <Route path="/Butik/home" exact element={<HomeTab />} />
+        <Route path="/Butik/categories" exact element={<CategoriesTab />} />
+        <Route path="/Butik/chat" exact element={<Chat />} />
         <Route path="Butik/account" exact element={<Account />} />
         <Route path="Butik/stores" exact element={<StoreView />} />
         <Route path="Butik/*" element={<Navigate to="/Butik/home" replace />} />
