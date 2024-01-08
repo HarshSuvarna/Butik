@@ -84,11 +84,7 @@ const Home = ({ cookies }) => {
             path !== "/home" && "hide-hero-container"
           }`}
         >
-          <img
-            className="hero-img"
-            src="../../category-icons/landing.png"
-            alt=""
-          />
+          <img className="hero-img" src={landing} alt="" />
           <div className={`text ${path !== "/home" && "hide-text"}`}>
             <p className="title">Find Stores</p>
             <p className="description">
