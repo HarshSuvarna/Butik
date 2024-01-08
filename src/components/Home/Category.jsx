@@ -6,7 +6,7 @@ import { LoaderContext } from "../../context/LoaderContext";
 import { colors } from "../../constants";
 
 function Categories({ showSubcat = () => {}, showStores = () => {} }) {
-  const imagePath = "/src/category-icons/";
+  const imagePath = "src/category-icons/";
   const [categories, setCategories] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
