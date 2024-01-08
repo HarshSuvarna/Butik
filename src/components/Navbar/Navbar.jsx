@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAsyncError, useNavigate } from "react-router-dom";
 import "./navbar.css";
+import logo from "../../category-icons/logo.png";
+
 function Navbar({ setShowMenu, showMenu, cookies }) {
   const [navBackground, setNavBackground] = useState(false);
   const [showSearchBox, setShowSearchBox] = useState(false);
@@ -44,7 +46,7 @@ function Navbar({ setShowMenu, showMenu, cookies }) {
   return (
     <div
       className={`nav-bar ${
-        (navBackground || path !== "Butik/home") && "nav-background"
+        (navBackground || path !== "/home") && "nav-background"
       }`}
     >
       <div className="left-container">
@@ -58,9 +60,9 @@ function Navbar({ setShowMenu, showMenu, cookies }) {
           }}
         />
         <img
-          src="src/category-icons/logo.png"
+          src={logo}
           alt=""
-          onClick={() => navigate("Butik/home")}
+          onClick={() => navigate("/home")}
           style={{ cursor: "pointer" }}
         />
       </div>
