@@ -27,7 +27,7 @@ function StoreView() {
         <i className="fa-solid fa-arrow-left" onClick={() => navigate(-1)} />
         <span className="store-text">
           &nbsp;Showing all stores with&nbsp;
-          <p style={{ margin: "0px", color: color }}>
+          <p style={{ margin: "0px", color: color || "red" }}>
             {category?.categoryName || subcategory?.subcategoryName}
           </p>
         </span>

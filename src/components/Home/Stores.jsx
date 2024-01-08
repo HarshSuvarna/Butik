@@ -11,11 +11,7 @@ import Modal from "../UIElements/Modal";
 import StoreCard from "../StoreView/StoreCard";
 import { LoaderContext } from "../../context/LoaderContext";
 
-function Stores({
-  categoryId = undefined,
-  subcategoryId = undefined,
-  range = 50,
-}) {
+function Stores({ categoryId = undefined, subcategoryId = undefined, range }) {
   const [stores, setStores] = useState([]);
   const { contextValues } = useMyContext();
   const [userData, setUserData] = useState({ ...contextValues.auth });
@@ -45,10 +41,7 @@ function Stores({
       };
       if (window.location.pathname === "/stores" && categoryId) {
         res = await getNearestStoresByCategory({ ...req, categoryId });
-      } else if (
-        window.location.pathname === "/stores" &&
-        subcategoryId
-      ) {
+      } else if (window.location.pathname === "/stores" && subcategoryId) {
         res = await getNearestStoresBySubcategory({
           ...req,
           subcategoryId,

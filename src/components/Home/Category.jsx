@@ -4,11 +4,10 @@ import { getAllCategories } from "../../services/categories.services";
 import { useNavigate } from "react-router-dom";
 import { LoaderContext } from "../../context/LoaderContext";
 import { colors } from "../../constants";
+import CategoryCard from "./CategoryCard";
 
-function Categories({ showSubcat = () => {}, showStores = () => {} }) {
-  const imagePath = "images/";
+function Categories({ showSubcat = () => {} }) {
   const [categories, setCategories] = useState([]);
-  const [showAllCategories, setShowAllCategories] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const navigate = useNavigate();
   const containerRef = useRef();
@@ -17,8 +16,6 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const getImageUrl = async (categories) => {};
 
   const fetchData = async () => {
     try {
@@ -50,17 +47,12 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
       <div ref={containerRef} className="category-container">
         <div className="category-icon-container">
           {(categories || []).map((c, i) => (
-            <div
-              className="cat-image-container"
-              style={{ backgroundColor: colors[i] }}
-              onClick={() => {
-                handleClick(c.categoryId, colors[i]);
-              }}
+            <CategoryCard
+              c={c}
+              handleClick={handleClick}
+              color={colors[i]}
               key={i}
-            >
-              <p>{c.categoryName}</p>
-              <img className="category-icon" src={imagePath + c?.icon} alt="" />
-            </div>
+            />
           ))}
         </div>
       </div>
