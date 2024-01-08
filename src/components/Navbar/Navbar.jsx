@@ -60,7 +60,7 @@ function Navbar({ setShowMenu, showMenu, cookies }) {
           }}
         />
         <img
-          src={"/src/category-icons/logo.png"}
+          src={logo}
           alt=""
           onClick={() => navigate("/home")}
           style={{ cursor: "pointer" }}
