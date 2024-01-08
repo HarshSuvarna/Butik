@@ -43,7 +43,7 @@ function CategoriesTab() {
               className="subcategories"
               key={e.subcategoryId}
               onClick={() =>
-                navigate("/stores", {
+                navigate("/Butik/stores", {
                   state: {
                     subcategoryId: e?.subcategoryId || "",
                     range,

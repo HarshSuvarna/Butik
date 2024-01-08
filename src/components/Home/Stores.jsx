@@ -43,9 +43,12 @@ function Stores({
         longitude: userData?.longitude || location?.longitude || -4.4322,
         max_kms: 10000, // Change THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
       };
-      if (window.location.pathname === "/stores" && categoryId) {
+      if (window.location.pathname === "/Butik/stores" && categoryId) {
         res = await getNearestStoresByCategory({ ...req, categoryId });
-      } else if (window.location.pathname === "/stores" && subcategoryId) {
+      } else if (
+        window.location.pathname === "/Butik/stores" &&
+        subcategoryId
+      ) {
         res = await getNearestStoresBySubcategory({
           ...req,
           subcategoryId,
@@ -62,7 +65,9 @@ function Stores({
 
   return (
     <div className="store-parent">
-      <p className="store-title">Stores Near You!</p>
+      <p className="store-title">
+        {range ? `Stores within ${range} kms` : "Stores Near You!"}
+      </p>
       <div className="store-container">
         {stores.length ? (
           stores.map((s, i) => (

@@ -30,10 +30,6 @@ function StoreView() {
           <p style={{ margin: "0px", color: color }}>
             {category?.categoryName || subcategory?.subcategoryName}
           </p>
-          <p style={{ visibility: !range && "hidden" }}>
-            Range:
-            {range} kms
-          </p>
         </span>
       </div>
       <Stores categoryId={catId} subcategoryId={subcategoryId} range={range} />

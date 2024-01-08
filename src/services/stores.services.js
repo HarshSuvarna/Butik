@@ -5,7 +5,7 @@ export const getNearestStores = (params) => {
 };
 
 export const getLocation = () => {
-  return axios.get("  https://ipapi.co/json", { baseURL: "" });
+  return axios.get("https://ipapi.co/json", { baseURL: "" });
 };
 
 export const getNearestStoresByCategory = (params) => {

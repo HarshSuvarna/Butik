@@ -14,7 +14,7 @@ import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import { LoaderContext } from "../../context/LoaderContext";
 import ApiLoader from "../UIElements/ApiLoader";
-
+import landing from "../../category-icons/landing.png";
 const Home = ({ cookies }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { contextValues, updateContextValue } = useMyContext();
@@ -36,18 +36,17 @@ const Home = ({ cookies }) => {
   const { apiLoader, toggleLoading } = useContext(LoaderContext);
   useEffect(() => {
     setPath(window.location.pathname);
-    console.log("path :>> ", path);
   }, [window.location.pathname]);
 
   const renderContent = () => {
     return (
       <Routes>
-        <Route path="/home" exact element={<HomeTab />} />
-        <Route path="/categories" exact element={<CategoriesTab />} />
-        <Route path="/chat" exact element={<Chat />} />
-        <Route path="/account" exact element={<Account />} />
-        <Route path="/stores" exact element={<StoreView />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
+        <Route path="Butik/home" exact element={<HomeTab />} />
+        <Route path="Butik/categories" exact element={<CategoriesTab />} />
+        <Route path="Butik/chat" exact element={<Chat />} />
+        <Route path="Butik/account" exact element={<Account />} />
+        <Route path="Butik/stores" exact element={<StoreView />} />
+        <Route path="*" element={<Navigate to="Butik/home" replace />} />
       </Routes>
     );
   };
@@ -82,15 +81,11 @@ const Home = ({ cookies }) => {
       <div className="body-content">
         <div
           className={`hero-space-container ${
-            path !== "/home" && "hide-hero-container"
+            path !== "/Butik/home" && "hide-hero-container"
           }`}
         >
-          <img
-            className="hero-img"
-            src="./Butik/category-icons/landing.png"
-            alt=""
-          />
-          <div className={`text ${path !== "/home" && "hide-text"}`}>
+          <img className="hero-img" src={landing} alt="" />
+          <div className={`text ${path !== "/Butik/home" && "hide-text"}`}>
             <p className="title">Find Stores</p>
             <p className="description">
               Uncover hidden gems in your neighborhood with Butik. Explore

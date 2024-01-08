@@ -6,7 +6,7 @@ import { LoaderContext } from "../../context/LoaderContext";
 import { colors } from "../../constants";
 
 function Categories({ showSubcat = () => {}, showStores = () => {} }) {
-  const imagePath = "src/category-icons/";
+  const imagePath = "/Butik/src/category-icons/";
   const [categories, setCategories] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -39,9 +39,9 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
   };
 
   const handleClick = async (catId, color) => {
-    window.location.pathname === "/categories"
+    window.location.pathname === "/Butik/categories"
       ? showSubcat(catId)
-      : navigate("/stores", { state: { catId, categories, color } });
+      : navigate("/Butik/stores", { state: { catId, categories, color } });
   };
   return (
     <div className="category-parent">

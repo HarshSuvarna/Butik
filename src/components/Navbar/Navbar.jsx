@@ -44,7 +44,7 @@ function Navbar({ setShowMenu, showMenu, cookies }) {
   return (
     <div
       className={`nav-bar ${
-        (navBackground || path !== "/home") && "nav-background"
+        (navBackground || path !== "Butik/home") && "nav-background"
       }`}
     >
       <div className="left-container">
@@ -60,7 +60,7 @@ function Navbar({ setShowMenu, showMenu, cookies }) {
         <img
           src="src/category-icons/logo.png"
           alt=""
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("Butik/home")}
           style={{ cursor: "pointer" }}
         />
       </div>
