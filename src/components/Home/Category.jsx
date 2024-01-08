@@ -4,23 +4,9 @@ import { getAllCategories } from "../../services/categories.services";
 import { useNavigate } from "react-router-dom";
 import { LoaderContext } from "../../context/LoaderContext";
 import { colors } from "../../constants";
-import Infants from "../../category-icons/Infants.png";
-import Bottom_Wear from "../../category-icons/Bottom_Wear.png";
-import Boys_Footwear from "../../category-icons/Boys_Footwear.png";
-import Fashion_Accessories from "../../category-icons/Fashion_Accessories.png";
-import Indian_Festive_Wear from "../../category-icons/Indian_Festive_Wear.png";
-import Inner_Sleep_Wear from "../../category-icons/Inner_Sleep_Wear.png";
-import Kids_Accessories from "../../category-icons/kids_Accesories.png";
-import Kids_Clothing from "../../category-icons/kids_Clothing.png";
-import Lingerie_Sleepwear from "../../category-icons/Lingerie_Sleepwear.png";
-import Spots_Active_Wear from "../../category-icons/Spots_Active_Wear.png";
-import Top_wear from "../../category-icons/Top_wear.png";
-import Western_Wear from "../../category-icons/Western_Wear.png";
-import Footwear from "../../category-icons/Footwear.png";
-import kidsFootwear from "../../category-icons/kids_Footwear.png";
 
 function Categories({ showSubcat = () => {}, showStores = () => {} }) {
-  const imagePath = "src/category-icons/";
+  const imagePath = "images/";
   const [categories, setCategories] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -73,7 +59,7 @@ function Categories({ showSubcat = () => {}, showStores = () => {} }) {
               key={i}
             >
               <p>{c.categoryName}</p>
-              <img className="category-icon" src={Footwear} alt="" />
+              <img className="category-icon" src={imagePath + c?.icon} alt="" />
             </div>
           ))}
         </div>

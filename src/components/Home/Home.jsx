@@ -14,7 +14,6 @@ import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import { LoaderContext } from "../../context/LoaderContext";
 import ApiLoader from "../UIElements/ApiLoader";
-import landing from "../../category-icons/landing.png";
 const Home = ({ cookies }) => {
   const [showMenu, setShowMenu] = useState(false);
   const { contextValues, updateContextValue } = useMyContext();
@@ -84,7 +83,7 @@ const Home = ({ cookies }) => {
             path !== "/home" && "hide-hero-container"
           }`}
         >
-          <img className="hero-img" src={landing} alt="" />
+          <img className="hero-img" src={"images/landing.png"} alt="" />
           <div className={`text ${path !== "/home" && "hide-text"}`}>
             <p className="title">Find Stores</p>
             <p className="description">

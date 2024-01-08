@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAsyncError, useNavigate } from "react-router-dom";
 import "./navbar.css";
-import logo from "../../category-icons/logo.png";
 
 function Navbar({ setShowMenu, showMenu, cookies }) {
   const [navBackground, setNavBackground] = useState(false);
@@ -60,7 +59,7 @@ function Navbar({ setShowMenu, showMenu, cookies }) {
           }}
         />
         <img
-          src={logo}
+          src="images/logo.png"
           alt=""
           onClick={() => navigate("/home")}
           style={{ cursor: "pointer" }}
