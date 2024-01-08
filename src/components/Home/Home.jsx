@@ -46,7 +46,7 @@ const Home = ({ cookies }) => {
         <Route path="Butik/chat" exact element={<Chat />} />
         <Route path="Butik/account" exact element={<Account />} />
         <Route path="Butik/stores" exact element={<StoreView />} />
-        <Route path="*" element={<Navigate to="Butik/home" replace />} />
+        <Route path="*" element={<Navigate to="/Butik/home" replace />} />
       </Routes>
     );
   };
