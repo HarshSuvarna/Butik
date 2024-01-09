@@ -57,9 +57,9 @@
   background: #3121cf;
   color: #ffffff;
   font-size: 17px;
-  margin-left: 46px;
+  margin-left: 45px;
   margin-top: 30px;
-  transition: all 0.5s;
+  transition: all 0.4s;
 }
 
 .text button:hover {
