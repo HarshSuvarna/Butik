@@ -1,6 +1,6 @@
 // App.js
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import "./app.css";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
 import Loader from "./components/UIElements/loader";
