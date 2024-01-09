@@ -49,15 +49,17 @@ function Navbar({ setShowMenu, showMenu, cookies }) {
       }`}
     >
       <div className="left-container">
-        <i
-          className={showMenu ? "fa-solid fa-arrow-left" : "fa-solid fa-list"}
-          onClick={() => setShowMenu(!showMenu)}
-          style={{
-            color: " rgb(99, 99, 99)",
-            marginLeft: "18px",
-            fontSize: "20px",
-          }}
-        />
+        <div className="sandwich-div">
+          <i
+            className={showMenu ? "fa-solid fa-arrow-left" : "fa-solid fa-list"}
+            onClick={() => setShowMenu(!showMenu)}
+            style={{
+              color: " rgb(99, 99, 99)",
+              marginLeft: "18px",
+              fontSize: "20px",
+            }}
+          />
+        </div>
         <img
           src="images/logo.png"
           alt=""
