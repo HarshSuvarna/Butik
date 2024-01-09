@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import "./app.css";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
-import Loader from "./components/UIElements/loader";
 import { LoaderContext } from "./context/LoaderContext";
 
 function App({ cookies }) {
