@@ -27,7 +27,7 @@
 .text {
   position: absolute;
   top: 50px;
-  left: 200px;
+  right: 54rem;
   width: 30%;
 }
 
@@ -35,20 +35,18 @@
   visibility: hidden;
 }
 .title {
-  font-size: 70px;
+  font-size: 5vw;
   font-weight: bold;
   width: 50%;
   margin-bottom: 0px;
   color: #2b3237;
   /* font-family: "Bebas Neue", sans-serif; */
-
 }
 .description {
-  font-size: 25px;
+  font-size: 2vw;
   color: #8295a3;
   font: bolder;
-    /* font-family: "Martel Sans", sans-serif; */
-
+  /* font-family: "Martel Sans", sans-serif; */
 }
 
 .text button {
