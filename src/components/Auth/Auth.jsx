@@ -7,7 +7,7 @@ import { getOtpAPI, sendOTP } from "../../services/auth.services";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { jwtDecode } from "jwt-decode";
-import { Loader } from "../UIElements/loader";
+// import { Loader } from "../UIElements/loader";
 import Select from "react-select";
 
 const Auth = ({ setIsAuthenticated, cookies }) => {
