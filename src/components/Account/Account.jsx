@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useMyContext } from "../../context/AuthContext";
-import "./account.css";
+import "./Account.css";
 import { getAllGenders } from "../../services/attributes.services";
 import { makeSeller, updateUser } from "../../services/user.services";
 import { Loader } from "../UIElements/Loader";
