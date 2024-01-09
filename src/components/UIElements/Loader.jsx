@@ -1,8 +1,8 @@
 import "./loader.css";
 // import React from "react";
 
-const Loader = ({ dim }) => {
+export const Loader = ({ dim }) => {
   return <span style={{ height: "24px", width: "24px" }} className="loader" />;
 };
 
-export default Loader;
+// export default Loader;
