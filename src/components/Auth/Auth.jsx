@@ -126,7 +126,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
             </div>
           </form>
           <button onClick={handleMobileNumberSubmit} type="submit">
-            {loading ? <Loader height={"14px"} /> : "Send OTP"}
+            {loading ? <Loader dim={"14px"} /> : "Send OTP"}
           </button>
 
           {/* <div className="time">{time}</div> */}
