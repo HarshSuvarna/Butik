@@ -1,6 +1,6 @@
 import React from "react";
 
-function SubcategoryCard({ e, handleSubcatClick }) {
+function SubcategoryCard({ e, handleSubcatClick, }) {
   return (
     <div
       className="subcategories"

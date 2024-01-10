@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function CategoriesTab() {
   const [subcategories, setSubcategories] = useState();
-
+  const [show, setShow] = useState(false);
   const [range, setRange] = useState(50);
   const { apiLoader, toggleLoading } = useContext(LoaderContext);
   const navigate = useNavigate();
@@ -46,21 +46,30 @@ function CategoriesTab() {
 
   return (
     <>
-      <Categories showSubcat={showSubcat} />
-      <div className="subcategories-container">
-        <p>Select Subcategory</p>
-        <div className="subcategory-container">
-          {(subcategories || []).map((e) => (
-            <SubcategoryCard e={e} handleSubcatClick={handleSubcatClick} />
-          ))}
+      <Categories showSubcat={showSubcat} setShow={setShow} />
+      {show && (
+        <div className="subcategories-container">
+          <p>Select Subcategory</p>
+          <div className="subcategory-container">
+            {(subcategories || []).map((e) => (
+              <SubcategoryCard
+                e={e}
+                handleSubcatClick={handleSubcatClick}
+                setShow={setShow}
+              />
+            ))}
+          </div>
+          <p>Set Search Range</p>
+          <div className="range-container">
+            <p>{range}</p>
+            <RangeSlider
+              width={"40%"}
+              handleSliderChange={handleSliderChange}
+            />
+            <p>kms</p>
+          </div>
         </div>
-        <p>Set Search Range</p>
-        <div className="range-container">
-          <p>{range}</p>
-          <RangeSlider width={"40%"} handleSliderChange={handleSliderChange} />
-          <p>kms</p>
-        </div>
-      </div>
+      )}
     </>
   );
 }
