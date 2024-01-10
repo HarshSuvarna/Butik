@@ -6,7 +6,7 @@ import { LoaderContext } from "../../context/LoaderContext";
 import { colors } from "../../constants";
 import CategoryCard from "./CategoryCard";
 
-function Categories({ showSubcat = () => {} }) {
+function Categories({ showSubcat = () => {}, setShow = () => {} }) {
   const [categories, setCategories] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -14,6 +14,7 @@ function Categories({ showSubcat = () => {} }) {
   const navigate = useNavigate();
   const containerRef = useRef();
   const { apiLoader, toggleLoading } = useContext(LoaderContext);
+  const path = window.location.pathname;
 
   useEffect(() => {
     fetchData();
@@ -21,7 +22,6 @@ function Categories({ showSubcat = () => {} }) {
 
   useEffect(() => {
     setSelectedCategory(categories[0]);
-    console.log('categories[0] :>> ', categories[0]);
   }, [categories]);
 
   const fetchData = async () => {
@@ -44,13 +44,20 @@ function Categories({ showSubcat = () => {} }) {
   };
 
   const handleClick = async (catId, color) => {
-    window.location.pathname === "/categories"
-      ? showSubcat(catId)
-      : navigate("/stores", { state: { catId, categories, color } });
+    if (path === "/categories") {
+      showSubcat(catId);
+      setShow(true);
+    } else {
+      navigate("/stores", { state: { catId, categories, color } });
+    }
   };
   return (
     <div className="category-parent">
-      <p className="category-title">Shop Our Top Categories</p>
+      <p className="category-title">
+        {path !== "/categories"
+          ? "Shop Our Top Categories"
+          : "Select a Category"}
+      </p>
       <div ref={containerRef} className="category-container">
         <div className="category-icon-container">
           {(categories || []).map((c, i) => (
