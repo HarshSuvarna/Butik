@@ -75,46 +75,6 @@
   gap: 35px;
 }
 
-.cat-image-container {
-  height: 88%;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  border-radius: 10px;
-  position: relative;
-  width: 150px;
-}
-
-.cat-image-container p {
-  width: 100%;
-  white-space: wrap;
-  padding: 5%;
-  position: absolute;
-  top: 0;
-  /* font-weight: bold; */
-  color: rgb(255 255 255);
-}
-.category-container button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.category-icon {
-  height: 180px;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease, translate 0.5s;
-  position: absolute;
-  bottom: -14px;
-  left: 10px;
-}
-
-.category-icon:hover {
-  translate: 0px -5px;
-}
-
 ::-webkit-scrollbar {
   height: 5px;
 }
-
-/* Handle */

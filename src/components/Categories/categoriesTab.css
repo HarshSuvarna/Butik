@@ -1,6 +1,4 @@
 .subcategories-container {
-  margin-top: 8rem;
-  background-color: rgb(68, 255, 0);
   border-radius: 10px;
   width: 90%;
   height: 77%;
@@ -11,9 +9,8 @@
 }
 
 .subcategory-container {
-  background-color: burlywood;
   height: auto;
-  width: 50%;
+  width: 60%;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -26,16 +23,49 @@
 }
 
 .subcategories {
-  background-color: red;
-  height: 70px;
-  width: 70px;
+  background-color: #2176cf57;
+  color: #1e5a84;
+  height: 36px;
   border-radius: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  font-size: x-small;
-  font-weight: 600;
-  padding: 7%;
+  font-size: 1rem;
+  padding: 1px 10px;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.subcategories:hover {
+  background-color: #1e5a84;
+  color: #ffffff;
+}
+
+.subcategories-container p {
+  font-size: 26px;
+  margin-bottom: 0px;
+  font-weight: 600;
+  color: #2b3237;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.div-item {
+  padding: 10px;
+  margin: 5px;
+  background-color: black;
+  cursor: pointer;
+  color: pink;
+}
+
+.div-item.selected {
+  background-color: rgb(255, 7, 7);
+  color: rgb(10, 9, 9); /* Optional: Change text color for better visibility */
+}
+
+.range-container {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  width: 66rem;
+  gap: 10px;
 }

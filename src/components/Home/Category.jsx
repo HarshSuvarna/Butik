@@ -9,6 +9,8 @@ import CategoryCard from "./CategoryCard";
 function Categories({ showSubcat = () => {} }) {
   const [categories, setCategories] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   const navigate = useNavigate();
   const containerRef = useRef();
   const { apiLoader, toggleLoading } = useContext(LoaderContext);
@@ -16,6 +18,11 @@ function Categories({ showSubcat = () => {} }) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    setSelectedCategory(categories[0]);
+    console.log('categories[0] :>> ', categories[0]);
+  }, [categories]);
 
   const fetchData = async () => {
     try {
@@ -51,7 +58,9 @@ function Categories({ showSubcat = () => {} }) {
               c={c}
               handleClick={handleClick}
               color={colors[i]}
-              key={i}
+              key={c.categoryId}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
             />
           ))}
         </div>
