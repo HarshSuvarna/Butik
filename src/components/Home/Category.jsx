@@ -3,7 +3,7 @@ import "./category.css";
 import { getAllCategories } from "../../services/categories.services";
 import { useNavigate } from "react-router-dom";
 import { LoaderContext } from "../../context/LoaderContext";
-import { colors } from "../../constants";
+import { colors } from "../../common/constants";
 import CategoryCard from "./CategoryCard";
 
 function Categories({ showSubcat = () => {}, setShow = () => {} }) {

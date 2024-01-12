@@ -1,7 +1,7 @@
 // components/Auth/Auth.js
 
 import React, { useState, useEffect } from "react";
-import { countryCodes } from "../../constants";
+import { countryCodes } from "../../common/constants";
 import "./auth.css";
 import { getOtpAPI, sendOTP } from "../../services/auth.services";
 import { ToastContainer, toast } from "react-toastify";
