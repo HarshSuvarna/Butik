@@ -85,11 +85,7 @@ function Stores({ categoryId = undefined, subcategoryId = undefined, range }) {
           </span>
         )}
 
-        {openModal && (
-          <Modal closeModal={setOpenModal} store={store}>
-            asdfasdfasdf
-          </Modal>
-        )}
+        {openModal && <Modal closeModal={setOpenModal} store={store} />}
       </div>
     </div>
   );

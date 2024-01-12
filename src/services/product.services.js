@@ -7,3 +7,7 @@ export const getProductsInStore = (params) => {
 export const getDetailedProductData = (params) => {
   return axios.post("/getDetailedProductForUser", params);
 };
+
+export const getSearchProducts = (params) => {
+  return axios.post("/get-searched-products", params);
+};

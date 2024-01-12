@@ -3,8 +3,9 @@ import { getDetailedProductData } from "../services/product.services";
 import "./product-view.css";
 import Price from "../components/UIElements/Price";
 import { LoaderContext } from "../context/LoaderContext";
+import { showDirection } from "../common/helper";
 
-function ProductView({ selectedProductId, store, showDirection }) {
+function ProductView({ selectedProductId, store }) {
   const [product, setProduct] = useState();
   const [sellerData, setSellerData] = useState({});
   const [variantList, setVariantList] = useState([]);
@@ -29,6 +30,8 @@ function ProductView({ selectedProductId, store, showDirection }) {
       setSelectedImage(variantList[0]?.imagesUrlList?.[0] || "");
     }
   }, [variantList]);
+
+  useEffect(() => {}, [sellerData]);
 
   useEffect(() => {
     setSizePriceList([...(selectedVariant?.spqList || [])]);
@@ -58,7 +61,6 @@ function ProductView({ selectedProductId, store, showDirection }) {
       setProduct({ ...res?.data?.product_details });
       setVariantList([...res?.data?.variantList]);
       setVariant({ ...variantList[0] });
-      setSizePriceList([...variantList[0].spqList]);
       setSellerData({ ...res?.data?.seller_details });
     } catch (error) {
     } finally {
@@ -137,14 +139,19 @@ function ProductView({ selectedProductId, store, showDirection }) {
         </div>
       </div>
       <div className="store-info">
-        <p>{store.storeName}</p>
-        <button onClick={showDirection} className="direction-buttons">
+        <p>{store?.storeName || sellerData?.storeName}</p>
+        <button
+          onClick={() => showDirection(store?.latitude, store?.longitude)}
+          className="direction-buttons"
+        >
           <i className="fa-solid fa-location-dot"></i>
         </button>
         <button
           className="call-buttons"
           onClick={() => {
-            navigator.clipboard.writeText(store?.storePhone);
+            navigator.clipboard.writeText(
+              store?.storePhone || sellerData?.storePhone
+            );
           }}
         >
           <i className="fa-solid fa-phone"></i>

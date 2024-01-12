@@ -134,6 +134,9 @@
   border: none;
   font-size: 20px;
 }
+.hidden {
+  visibility: hidden;
+}
 
 .back-button:hover {
   transform: tranlateX(10px);

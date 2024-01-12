@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 92vh;
+  height: 85vh;
   gap: 2rem;
   align-items: center;
   width: 100%;
@@ -26,8 +26,8 @@
 
 .text {
   position: absolute;
-  top: 50px;
-  right: 54rem;
+  top: 7px;
+  left: 10rem;
   width: 30%;
 }
 
@@ -80,7 +80,7 @@
   width: 75%;
   height: 100%;
   margin-right: 12rem;
-  transform: scale(1.2) translateY(-40px);
+  transform: scale(1.2) translateY(-75px);
   transition: transform 0.4s ease;
 }
 

@@ -78,22 +78,7 @@ const Home = ({ cookies }) => {
       <Navbar setShowMenu={setShowMenu} showMenu={showMenu} cookies={cookies} />
       <Sidebar showMenu={showMenu} />
       <div className="body-content">
-        <div
-          className={`hero-space-container ${
-            path !== "/home" && "hide-hero-container"
-          }`}
-        >
-          <img className="hero-img" src={"images/landing.png"} alt="" />
-          <div className={`text ${path !== "/home" && "hide-text"}`}>
-            <p className="title">Find Stores</p>
-            <p className="description">
-              Uncover hidden gems in your neighborhood with Butik. Explore
-              nearby stores offering a diverse range of products. Your next
-              great find is just a click away!
-            </p>
-            <button onClick={scrollToTarget}>Get Started</button>
-          </div>
-        </div>
+        
         <div className="category-store-container" ref={bodyRef}>
           {renderContent()}
         </div>
