@@ -4,6 +4,7 @@ import "./app.css";
 import Auth from "./components/Auth/Auth";
 import Home from "./components/Home/Home";
 import { LoaderContext } from "./context/LoaderContext";
+import { ToastContainer } from "react-toastify";
 
 function App({ cookies }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,6 +23,7 @@ function App({ cookies }) {
   return (
     <LoaderContext.Provider value={{ apiLoader, toggleLoading }}>
       <div className="main">
+        <ToastContainer position="top-right" />
         {!isAuthenticated && (
           <Auth setIsAuthenticated={setIsAuthenticated} cookies={cookies} />
         )}

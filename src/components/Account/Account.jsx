@@ -5,6 +5,7 @@ import { getAllGenders } from "../../services/attributes.services";
 import { makeSeller, updateUser } from "../../services/user.services";
 import { Loader } from "../UIElements/Loader";
 import { LoaderContext } from "../../context/LoaderContext";
+import { notifyError, notifyInfo } from "../UIElements/CustomToasts";
 
 function Account() {
   const { contextValues, updateContextValue } = useMyContext();
@@ -36,9 +37,11 @@ function Account() {
       let res = await updateUser({ ...userData });
       updateContextValue("auth", res?.data || userData);
       setLoading(false);
+      notifyInfo("User info updated Successfully");
     } catch (e) {
       console.log(e?.message || e?.error || e);
     } finally {
+      notifyError("User info not Updated");
       toggleLoading(false);
     }
   };
@@ -57,7 +60,7 @@ function Account() {
 
   return (
     <div className="account-container">
-      <div>Profile</div>
+      <img src="images/account.jpg" alt="" />
       <div className="user-info">
         <div className="profile-pic-container">
           <div className="profile-pic">
@@ -66,25 +69,25 @@ function Account() {
             </p>
           </div>
         </div>
-        <div className="name-seller-container">
-          <input
-            className="profile-text-inputs"
-            value={userData?.name || ""}
-            onChange={(e) => setUserData({ ...userData, name: e.target.value })}
-            type="text"
-          />
+        {/* <div>
           {userData?.isSeller ? (
             <button onClick={showUserStores}>My Stores</button>
           ) : (
             <button onClick={makeUserSeller}>Become a Seller!</button>
           )}
-        </div>
-        <div className="meta-data-container">
+        </div> */}
+        <div className="all-info">
+          <p>Name</p>
+          <input
+            value={userData?.name || ""}
+            onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+            type="text"
+            placeholder="Name"
+          />
           <div>
-            Email
+            <p>Email</p>
             <input
               type="text"
-              className="email-input"
               value={userData?.email || ""}
               onChange={(e) =>
                 setUserData({ ...userData, email: e.target.value })
@@ -92,37 +95,33 @@ function Account() {
             />
           </div>
           <div>
-            Phone
+            <p>Phone</p>
             <input
               value={userData?.mobile || ""}
               disabled
               onChange={(e) =>
                 setUserData({ ...userData, mobile: e.target.value })
               }
-              className="phone-input"
               type="text"
             />
           </div>
-
           <div>
-            Date of Birth
+            <p>Date of Birth</p>
             <input
               value={userData?.dob || ""}
               onChange={(e) =>
                 setUserData({ ...userData, dob: e.target.value })
               }
-              className="dob-input"
               type="date"
             />
           </div>
-          <div>
-            Gender
+          <div className="gender-container">
+            <p>Gender</p>
             <select
               value={userData.genderId}
               onChange={(e) =>
                 setUserData({ ...userData, genderId: e.target.value })
               }
-              className="gender-input"
             >
               {genders.map((g) => (
                 <option key={g.genderId} value={g.genderId}>
@@ -132,8 +131,8 @@ function Account() {
             </select>
           </div>
         </div>
-        <div className="button-container">
-          <button className="submit-button" onClick={handleSubmit}>
+        <div className="footer">
+          <button onClick={handleSubmit}>
             {loader ? <Loader /> : "Submit"}
           </button>
         </div>

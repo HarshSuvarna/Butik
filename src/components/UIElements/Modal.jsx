@@ -5,6 +5,8 @@ import ProductCard from "../../Products/ProductCard";
 import ProductView from "../../Products/ProductView";
 import { LoaderContext } from "../../context/LoaderContext";
 import { showDirection } from "../../common/helper";
+import "react-toastify/dist/ReactToastify.css";
+import { notifySuccess } from "./CustomToasts";
 
 function Modal({ closeModal, store = {}, productId = undefined }) {
   const [showContent, setShowContent] = useState(false);
@@ -77,11 +79,11 @@ function Modal({ closeModal, store = {}, productId = undefined }) {
                 className="call-button"
                 onClick={() => {
                   navigator.clipboard.writeText(store?.storePhone);
+                  notifySuccess("Copied contact to Clipboard");
                 }}
               >
-                <i class="fa-solid fa-phone"></i>
+                <i className="fa-solid fa-phone"></i>
               </button>
-
               <img src={store?.storeImageURL || ""} alt="" />
               <div className="store-name-div gradient-border">
                 <p className="store-name">{store?.storeName}</p>

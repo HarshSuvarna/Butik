@@ -75,10 +75,12 @@
   border: none;
   color: blue;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .sandwich-div {
   width: 1px;
+  cursor: pointer;
 }
 
 .search-result {

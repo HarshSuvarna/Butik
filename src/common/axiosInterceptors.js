@@ -9,7 +9,8 @@ export default function axiosInterceptors(axios, cookies) {
   axios.interceptors.response.use(
     (response) => response.data || response,
     async (err) => {
-      console.log("err:>> ", err);
+      // console.log("err:>> ", err);
+      throw err;
     }
   );
 }

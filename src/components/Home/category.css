@@ -46,6 +46,7 @@
   background: rgb(0 0 0 / 50%);
   color: white;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .category-container-left:hover {
@@ -64,6 +65,7 @@
   background: rgb(0 0 0 / 50%);
   color: white;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .category-container-right:hover {

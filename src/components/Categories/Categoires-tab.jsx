@@ -47,7 +47,7 @@ function CategoriesTab() {
   return (
     <>
       <Categories showSubcat={showSubcat} setShow={setShow} />
-      {show && (
+      {show ? (
         <div className="subcategories-container">
           <p>Select Subcategory</p>
           <div className="subcategory-container">
@@ -69,6 +69,8 @@ function CategoriesTab() {
             <p>kms</p>
           </div>
         </div>
+      ) : (
+        <div className="prompt">Select a category to proceed</div>
       )}
     </>
   );

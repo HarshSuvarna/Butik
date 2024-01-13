@@ -1,4 +1,38 @@
 /* components/Auth/Auth.css */
+
+.auth-parent {
+  display: flex;
+}
+
+.auth-vector {
+  /* width: 100%; */
+  height: 520px;
+  width: 35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px 0px 0px 10px;
+  border: 1px solid #ccc;
+  border-right: 0px;
+  position: relative;
+}
+
+.auth-vector p {
+  position: absolute;
+  top: -47px;
+  left: 50px;
+  font-weight: 700;
+  font-size: 61px;
+  color: #120074bd;
+}
+
+.auth-vector img {
+  height: 96%;
+  width: 100%;
+  object-fit: contain;
+  transform: scale(0.95);
+  margin-top: 47px;
+}
 .auth-container {
   /* max-width: 350px; */
   /* margin: 0 auto; */
@@ -7,7 +41,21 @@
   border-radius: 8px;
   height: 30rem;
   width: 20rem;
+  border-radius: 0px 10px 10px 0px;
   /* margin-top: 12rem; */
+}
+
+.otp-input {
+  display: flex;
+  gap: 10px;
+}
+
+.otp-input input {
+  text-align: center;
+}
+.otp-input input:focus {
+  outline: blue;
+  border: 2px solid rgb(24, 0, 142);
 }
 
 .auth-form {

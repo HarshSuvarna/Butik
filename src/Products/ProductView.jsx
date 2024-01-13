@@ -4,6 +4,7 @@ import "./product-view.css";
 import Price from "../components/UIElements/Price";
 import { LoaderContext } from "../context/LoaderContext";
 import { showDirection } from "../common/helper";
+import { notifySuccess } from "../components/UIElements/CustomToasts";
 
 function ProductView({ selectedProductId, store }) {
   const [product, setProduct] = useState();
@@ -152,6 +153,7 @@ function ProductView({ selectedProductId, store }) {
             navigator.clipboard.writeText(
               store?.storePhone || sellerData?.storePhone
             );
+            notifySuccess("Copied contact to Clipboard");
           }}
         >
           <i className="fa-solid fa-phone"></i>

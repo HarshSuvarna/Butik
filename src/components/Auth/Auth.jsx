@@ -4,11 +4,11 @@ import React, { useState, useEffect } from "react";
 import { countryCodes } from "../../common/constants";
 import "./auth.css";
 import { getOtpAPI, sendOTP } from "../../services/auth.services";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { jwtDecode } from "jwt-decode";
 import { Loader } from "../UIElements/Loader";
 import Select from "react-select";
+import { notifyError, notifySuccess } from "../UIElements/CustomToasts";
 
 const Auth = ({ setIsAuthenticated, cookies }) => {
   const [countryCode, setCountryCode] = useState("+44");
@@ -51,7 +51,6 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
 
   const handleMobileNumberSubmit = async (e) => {
     e.preventDefault();
-
     try {
       let data = {
         cc: countryCode,
@@ -62,9 +61,10 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
       const res = await sendOTP(data);
       if (res) {
         setOtpSent(true);
+        notifySuccess("OTP Sent!");
       }
     } catch (e) {
-      toast("Invalid phone number");
+      notifyError("Invalid Phone Number");
       console.log("Error:", e.message || e.error || e);
     } finally {
       setLoading(false);
@@ -83,84 +83,91 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
       setLoading(true);
       const res = await getOtpAPI(data);
       setLoading(false);
+      notifySuccess("Login Successful!");
       if (res?.data?.Token) {
         login(res?.data?.Token, res);
       }
     } catch (e) {
+      console.log("in catch");
       setLoading(false);
-      toast("Incorrect OTP");
-      console.log(e.message || e.error || e);
+      notifyError("Incorrect OTP");
+      console.log(e?.message || e?.error || e);
     }
   };
 
   return (
-    <div className="auth-container">
-      <ToastContainer />
-      {!otpSent ? (
-        <div className="phone-number-container">
-          <h2>Login</h2>
-          <form>
-            <div className="country-code-select">
-              <p>Country</p>
-              <div>
-                <Select
-                  options={countryCodes}
-                  onChange={(opt) => {
-                    setCountryCode(opt?.value);
-                  }}
-                  defaultValue={countryCodes[1] || "Select"}
-                  styles={{ width: "3px" }}
+    <div className="auth-parent">
+      <div className="auth-vector">
+        <img src="images/shop.jpg" alt="" />
+        <p>Welcome to Butik</p>
+      </div>
+      <div className="auth-container">
+        {!otpSent ? (
+          <div className="phone-number-container">
+            <h2>Login</h2>
+            <form>
+              <div className="country-code-select">
+                <p>Country</p>
+                <div>
+                  <Select
+                    options={countryCodes}
+                    onChange={(opt) => {
+                      setCountryCode(opt?.value);
+                    }}
+                    defaultValue={countryCodes[1] || "Select"}
+                    styles={{ width: "3px" }}
+                  />
+                </div>
+                <p>Mobile</p>
+                <input
+                  type="tel"
+                  id="mobileNumber"
+                  name="mobileNumber"
+                  placeholder="Enter your mobile number"
+                  value={mobileNumber}
+                  maxLength={10}
+                  onChange={handleMobileNumberChange}
+                  required
                 />
               </div>
-              <p>Mobile</p>
+            </form>
+            <button onClick={handleMobileNumberSubmit} type="submit">
+              {loading ? <Loader dim={"14px"} /> : "Send OTP"}
+            </button>
+
+            {/* <div className="time">{time}</div> */}
+          </div>
+        ) : (
+          <div className="otp-page-container">
+            <h2>Verify OTP</h2>
+            <form>
+              <label htmlFor="otp">Enter OTP</label>
               <input
-                type="tel"
-                id="mobileNumber"
-                name="mobileNumber"
-                placeholder="Enter your mobile number"
-                value={mobileNumber}
-                maxLength={10}
-                onChange={handleMobileNumberChange}
+                type="text"
+                id="otp"
+                name="otp"
+                placeholder="Enter the OTP"
+                value={otp}
+                onChange={handleOtpChange}
                 required
               />
+            </form>
+            <div className="buttons-container">
+              <button onClick={handleOtpSubmit} type="submit">
+                {loading ? <Loader dim={"14px"} /> : "Verify OTP"}
+              </button>
+              <p
+                onClick={() => {
+                  setOtpSent(false);
+                  setOtp("");
+                }}
+              >
+                Back
+              </p>
             </div>
-          </form>
-          <button onClick={handleMobileNumberSubmit} type="submit">
-            {loading ? <Loader dim={"14px"} /> : "Send OTP"}
-          </button>
-
-          {/* <div className="time">{time}</div> */}
-        </div>
-      ) : (
-        <div className="otp-page-container">
-          <h2>Verify OTP</h2>
-          <form>
-            <label htmlFor="otp">Enter OTP</label>
-            <input
-              type="text"
-              id="otp"
-              name="otp"
-              placeholder="Enter the OTP"
-              value={otp}
-              onChange={handleOtpChange}
-              required
-            />
-          </form>
-          <div className="buttons-container">
-            <button onClick={handleOtpSubmit} type="submit">
-              {loading ? <Loader /> : "Verify OTP"}
-            </button>
-            <p
-              onClick={() => {
-                setOtpSent(false);
-                setOtp("");
-              }}
-            >
-              Back
-            </p>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

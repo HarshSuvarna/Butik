@@ -124,7 +124,10 @@ function Navbar({ setShowMenu, showMenu, cookies }) {
           <i
             className="fa-solid fa-magnifying-glass"
             onClick={handleSearchClick}
-            style={{ color: showSearchBox ? "white" : "black" }}
+            style={{
+              color: showSearchBox ? "white" : "black",
+              cursor: "pointer",
+            }}
           />
           <input
             className="search"

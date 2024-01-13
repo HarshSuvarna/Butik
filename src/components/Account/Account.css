@@ -1,5 +1,4 @@
 .account-container {
-  background-color: pink;
   width: 90%;
   height: 86vh;
   border-radius: 10px;
@@ -9,6 +8,16 @@
   align-items: center;
   gap: 10px;
   margin-top: 16px;
+  border-radius: 1px;
+  position: relative;
+}
+
+.account-container img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 40%;
+  object-fit: contain;
 }
 
 .seller-section {
@@ -25,39 +34,18 @@
   border-radius: 0;
 }
 
-.email-input {
-  width: 96%;
-  border-radius: 0;
-}
-
-.phone-input {
-  width: 96%;
-  border-radius: 0;
-}
-
-.dob-input {
-  width: 96%;
-  border-radius: 0;
-}
-
-.gender-input {
-  width: 96%;
-  border-radius: 0;
-}
-
 .user-info {
-  background-color: white;
-  width: 90%;
-  height: 34rem;
-  border-radius: 10px;
+  width: 94%;
+  /* height: 34rem; */
+  /* border-radius: 10px; */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   /* overflow: auto; */
-  padding: 3%;
+  padding: 0px 30%;
   gap: 28px;
+  z-index: 10;
 }
-
 .profile-pic-container {
   display: flex;
   align-items: center;
@@ -65,7 +53,7 @@
 }
 
 .profile-pic {
-  background-color: brown;
+  background-color: #2e61ff;
   border-radius: 48px;
   width: 80px;
   height: 80px;
@@ -73,22 +61,54 @@
   align-items: center;
   justify-content: center;
   margin-left: 3%;
+  color: white;
+  cursor: pointer;
 }
 
-.name-seller-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12rem;
+.all-info p {
+  margin: 0;
+  font-weight: 600;
+  color: #3c3c3c;
 }
-
-.button-container {
+.gender-container {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: start;
+  flex-direction: column;
   width: 100%;
 }
-.submit-button {
+
+.gender-container select {
+  width: 98%;
+  height: 40px;
+  background: #000000cf;
+  color: white;
+  font-size: 14px;
+}
+
+.gender-container select:focus {
+  outline: none;
+}
+
+.account-container input {
+  /* border: none; */
+  border: 1px solid white;
+  background-color: #000000cf;
+  color: white;
+  border-radius: 1px;
+  margin-bottom: 14px;
+}
+
+.account-container input:focus {
+  outline: none;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.footer button {
   width: 130px;
   height: 41px;
   border: none;
@@ -96,12 +116,9 @@
   background: #3121cf;
   color: #ffffff;
   font-size: 17px;
-  transition: all 0.5s;
+  transition: all 0.4s;
 }
 
-.meta-data-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.footer button:hover {
+  box-shadow: 0px 0px 7px rgb(17, 17, 164);
 }
