@@ -40,8 +40,8 @@ function Account() {
       notifyInfo("User info updated Successfully");
     } catch (e) {
       console.log(e?.message || e?.error || e);
-    } finally {
       notifyError("User info not Updated");
+    } finally {
       toggleLoading(false);
     }
   };
