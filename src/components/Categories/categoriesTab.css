@@ -77,4 +77,11 @@
   font-weight: bold;
   color: #2b3237;
   margin-top: 55px;
+  animation: slide 1s;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(-200px);
+  }
 }

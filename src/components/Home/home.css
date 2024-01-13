@@ -40,13 +40,27 @@
   width: 50%;
   margin-bottom: 0px;
   color: #2b3237;
+  animation: slide-bottom 1s;
   /* font-family: "Bebas Neue", sans-serif; */
+}
+
+@keyframes slide-bottom {
+  from {
+    transform: translateY(-200px);
+  }
 }
 .description {
   font-size: 2vw;
   color: #8295a3;
   font: bolder;
+  animation: slide-top 1s;
   /* font-family: "Martel Sans", sans-serif; */
+}
+
+@keyframes slide-top {
+  from {
+    transform: translateY(200px);
+  }
 }
 
 .text button {
@@ -83,6 +97,13 @@
   margin-right: 12rem;
   transform: scale(1.2) translateY(-75px);
   transition: transform 0.4s ease;
+  animation: slide-left 1s;
+}
+
+@keyframes slide-left {
+  from {
+    transform: translateX(200px);
+  }
 }
 
 /* .hero-img:hover {
