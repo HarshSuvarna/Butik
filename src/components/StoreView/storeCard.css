@@ -46,18 +46,21 @@
   justify-content: start;
   align-items: start;
   gap: 1px;
+  width: 100%;
 }
 
 .card-store-name {
   font-weight: 600;
   text-transform: uppercase;
   color: #2b3237;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  width: 100%;
-  font-size: 20px;
-  /* background: #00000069; */
+  /* overflow: hidden; */
+  /* white-space: nowrap; */
+  /* text-overflow: ellipsis; */
+  /* width: 100%; */
+  /* font-size: 20px; */
+  /* font-size: 22px; */
+  /* width: 100%; */
+  /* background: red; */
 }
 
 .card-retailer {
