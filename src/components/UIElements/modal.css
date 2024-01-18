@@ -32,6 +32,9 @@
   animation: show 0.2s;
   transform: translateY(0);
 } */
+.blur {
+  filter: blur(3px);
+}
 
 .close-button {
   position: absolute;

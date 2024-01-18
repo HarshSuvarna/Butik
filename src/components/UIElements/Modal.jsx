@@ -68,7 +68,7 @@ function Modal({ closeModal, store = {}, productId = undefined }) {
         ) : (
           <div className="modal-body">
             <div className="store-image-name-container">
-              <img className="bg-img" src={store?.storeImageURL} alt="" />
+              <img className="bg-img blur" src={store?.storeImageURL} alt="" />
               <button
                 onClick={() => showDirection(store?.latitude, store?.longitude)}
                 className="direction-button"
