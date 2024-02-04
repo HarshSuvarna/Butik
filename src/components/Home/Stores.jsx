@@ -37,7 +37,7 @@ function Stores({ categoryId = undefined, subcategoryId = undefined, range }) {
       let req = {
         latitude: userData?.latitude || location?.latitude || 55.8319,
         longitude: userData?.longitude || location?.longitude || -4.4322,
-        max_kms: 10000, // Change THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+        max_kms: 10000,
       };
       if (window.location.pathname === "/stores" && categoryId) {
         res = await getNearestStoresByCategory({ ...req, categoryId });

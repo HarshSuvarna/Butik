@@ -98,7 +98,7 @@ function ProductView({ selectedProductId, store }) {
             <p className="product-name">{product?.productName}</p>
             <p>{product?.productDescription}</p>
           </div>
-          <div>
+          <div style={{ width: "100%" }}>
             <p style={{ margin: "0", fontSize: "12px" }}>Colour</p>
             <div className="color-variants">
               {(variantList || []).map((v, i) => (
