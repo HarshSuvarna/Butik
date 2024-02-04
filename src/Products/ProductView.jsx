@@ -142,7 +142,12 @@ function ProductView({ selectedProductId, store }) {
       <div className="store-info">
         <p>{store?.storeName || sellerData?.storeName}</p>
         <button
-          onClick={() => showDirection(store?.latitude, store?.longitude)}
+          onClick={() =>
+            showDirection(
+              store?.latitude || sellerData?.latitude,
+              store?.longitude || sellerData?.longitude
+            )
+          }
           className="direction-buttons"
         >
           <i className="fa-solid fa-location-dot"></i>
