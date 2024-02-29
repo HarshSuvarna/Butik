@@ -15,18 +15,18 @@
   transform: translatex(0px);
 }
 .store-text {
-  font-size: 4rem;
+  font-size: 3rem;
   animation: slide 1s;
   height: 100%;
   font-weight: 400;
   font-family: "Bebas Neue", sans-serif;
-  display: flex;
-  justify-content: end;
+  /* display: flex; */
+  /* justify-content: end; */
   margin-top: 30px;
-  flex-direction: row;
-  align-items: end;
+  /* flex-direction: row; */
+  /* align-items: end; */
   width: 100%;
-  flex-wrap: nowrap;
+  /* flex-wrap: nowrap; */
 }
 
 @keyframes slide {
@@ -51,12 +51,12 @@
     height: 100%;
     font-weight: 400;
     font-family: "Bebas Neue", sans-serif;
-    display: flex;
-    justify-content: end;
+    /* display: flex; */
+    /* justify-content: end; */
     margin-top: 30px;
-    flex-direction: row;
-    align-items: end;
+    /* flex-direction: row; */
+    /* align-items: end; */
     width: 100%;
-    flex-wrap: nowrap;
+    /* flex-wrap: nowrap; */
   }
 }

@@ -25,12 +25,12 @@ function StoreView() {
     <div className="stores-container">
       <div className="filter-container">
         <i className="fa-solid fa-arrow-left" onClick={() => navigate(-1)} />
-        <span className="store-text">
+        <p className="store-text">
           &nbsp;Showing all stores with&nbsp;
-          <p style={{ margin: "0px", color: color || "red" }}>
+          <span style={{ margin: "0px", color: color || "red" }}>
             {category?.categoryName || subcategory?.subcategoryName}
-          </p>
-        </span>
+          </span>
+        </p>
       </div>
       <Stores categoryId={catId} subcategoryId={subcategoryId} range={range} />
     </div>

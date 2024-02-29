@@ -139,6 +139,9 @@ function ProductView({ selectedProductId, store }) {
           />
         </div>
       </div>
+      <div className="mob-img-container">
+        <img src={selectedImage} alt="" />
+      </div>
       <div className="store-info">
         <p>{store?.storeName || sellerData?.storeName}</p>
         <button
