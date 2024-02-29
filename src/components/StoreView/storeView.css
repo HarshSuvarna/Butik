@@ -43,3 +43,20 @@
 .filter-container i:hover {
   transform: translateX(-10px);
 }
+
+@media (max-width: 400px) {
+  .store-text {
+    font-size: 26px;
+    animation: slide 1s;
+    height: 100%;
+    font-weight: 400;
+    font-family: "Bebas Neue", sans-serif;
+    display: flex;
+    justify-content: end;
+    margin-top: 30px;
+    flex-direction: row;
+    align-items: end;
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+}

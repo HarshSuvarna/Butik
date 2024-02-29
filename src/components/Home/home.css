@@ -113,3 +113,44 @@
 .hide-hero-container {
   height: 0px;
 }
+
+@media (max-width: 400px) {
+  .text {
+    position: absolute;
+    top: -35px;
+    left: 13rem;
+    width: 30%;
+  }
+
+  .hero-img {
+    width: 75%;
+    /* height: 100%; */
+    margin-right: 12rem;
+    transform: scale(1.2) translateY(-75px);
+    transition: transform 0.4s ease;
+    animation: slide-left 1s;
+  }
+  .hero-space-container {
+    width: 100%;
+    /* background-color: aquamarine; */
+    height: 30vh;
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    position: relative;
+  }
+  .text button {
+    width: 130px;
+    height: 41px;
+    border: none;
+    border-radius: 50px;
+    background: #3121cf;
+    color: #ffffff;
+    font-size: 17px;
+    /* margin-left: 45px; */
+    /* margin-top: 30px; */
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+}
