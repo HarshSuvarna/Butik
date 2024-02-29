@@ -104,7 +104,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
       <div className="auth-container">
         {!otpSent ? (
           <div className="phone-number-container">
-            <h2>Login</h2>
+            <h2 className="login">Login</h2>
             <form>
               <div className="country-code-select">
                 <p>Country</p>
@@ -139,7 +139,7 @@ const Auth = ({ setIsAuthenticated, cookies }) => {
           </div>
         ) : (
           <div className="otp-page-container">
-            <h2>Verify OTP</h2>
+            <h2 className="verify">Verify OTP</h2>
             <form>
               <label htmlFor="otp">Enter OTP</label>
               <input

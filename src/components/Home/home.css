@@ -35,7 +35,7 @@
   visibility: hidden;
 }
 .title {
-  font-size: 5vw;
+  font-size: 75px;
   font-weight: bold;
   width: 50%;
   margin-bottom: 0px;
@@ -50,7 +50,7 @@
   }
 }
 .description {
-  font-size: 2vw;
+  font-size: 23px;
   color: #8295a3;
   font: bolder;
   animation: slide-top 1s;
@@ -71,7 +71,7 @@
   background: #3121cf;
   color: #ffffff;
   font-size: 17px;
-  margin-left: 45px;
+  /* margin-left: 45px; */
   margin-top: 30px;
   transition: all 0.4s;
   cursor: pointer;
@@ -114,14 +114,29 @@
   height: 0px;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 700px) {
   .text {
     position: absolute;
-    top: -35px;
-    left: 13rem;
+    top: -70px;
+    left: 16rem;
     width: 30%;
   }
-
+  .title {
+    font-size: 26px;
+    font-weight: bold;
+    width: 50%;
+    margin-bottom: 0px;
+    color: #2b3237;
+    animation: slide-bottom 1s;
+    /* font-family: "Bebas Neue", sans-serif; */
+  }
+  .description {
+    font-size: 13px;
+    color: #8295a3;
+    font: bolder;
+    animation: slide-top 1s;
+    /* font-family: "Martel Sans", sans-serif; */
+  }
   .hero-img {
     width: 75%;
     /* height: 100%; */
