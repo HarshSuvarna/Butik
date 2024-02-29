@@ -60,6 +60,9 @@ function Stores({ categoryId = undefined, subcategoryId = undefined, range }) {
     <div className="store-parent">
       <p className="store-title">
         {range ? `Stores within ${range} kms` : "Stores Near You!"}
+        <span style={{ fontSize: "10px", fontWeight: "100" }}>
+          &nbsp; &nbsp;(From your IP Address)
+        </span>
       </p>
       <div className="store-container">
         {stores.length ? (
